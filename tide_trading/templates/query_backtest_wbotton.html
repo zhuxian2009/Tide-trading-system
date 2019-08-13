@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link href="/static/css/style2.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+    <h2>查询 > W底</h2>
+    <div align="center" style="width:1000px;height:500px;border:0px solid #F00">
+	<html>
+
+<table id="customers">
+<tr>
+<th>代码</th>
+<th>左底价格</th>
+<th>左底日期</th>
+<th>右底价格</th>
+<th>右底日期</th>
+<th>回测日期</th>
+<th>小区间值</th>
+</tr>
+{% for i in wb_value %}
+<tr>
+<td>{{ i[0] }}</td>
+<td>{{ i[1] }}</td>
+<td>{{ i[3] }}</td>
+<td>{{ i[2] }}</td>
+<td>{{ i[4] }}</td>
+<td>{{ i[5] }}</td>
+<td>{{ i[6] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+		<nav aria-label="Page navigation">
+			<ul id="selpager">
+				{{ html|safe }}
+			</ul>
+		</nav>
+    </div>
+	
+    </body>
+</html>

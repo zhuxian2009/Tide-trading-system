@@ -1,0 +1,41 @@
+13-06-2019 23:06:14 root:DEBUG:init... ts.set_token OK!
+13-06-2019 23:06:14 apscheduler.scheduler:INFO:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+13-06-2019 23:06:14 apscheduler.scheduler:INFO:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+13-06-2019 23:06:14 apscheduler.scheduler:INFO:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+13-06-2019 23:06:15 apscheduler.scheduler:INFO:Added job "id_scd_hotspot_keepdbalive" to job store "default"
+13-06-2019 23:06:15 apscheduler.scheduler:INFO:Added job "id_scd_update_keepdbalive" to job store "default"
+13-06-2019 23:06:15 apscheduler.scheduler:INFO:Added job "id_dataservice_update" to job store "default"
+13-06-2019 23:06:15 apscheduler.scheduler:INFO:Scheduler started
+13-06-2019 23:06:15 apscheduler.scheduler:DEBUG:Looking for jobs to run
+13-06-2019 23:06:15 apscheduler.scheduler:DEBUG:Next wakeup is due at 2019-08-13 23:06:20+08:00 (in 4.975112 seconds)
+13-06-2019 23:06:15 werkzeug:INFO: * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+13-06-2019 23:06:20 apscheduler.scheduler:DEBUG:Looking for jobs to run
+13-06-2019 23:06:20 apscheduler.executors.default:INFO:Running job "id_scd_hotspot_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:20 CST)" (scheduled at 2019-08-13 23:06:20+08:00)
+13-06-2019 23:06:20 apscheduler.executors.default:INFO:Running job "id_scd_update_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:20 CST)" (scheduled at 2019-08-13 23:06:20+08:00)
+13-06-2019 23:06:20 apscheduler.scheduler:DEBUG:Next wakeup is due at 2019-08-13 23:06:25+08:00 (in 4.997827 seconds)
+13-06-2019 23:06:20 apscheduler.executors.default:INFO:Job "id_scd_update_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:25 CST)" executed successfully
+13-06-2019 23:06:20 apscheduler.executors.default:INFO:Job "id_scd_hotspot_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:25 CST)" executed successfully
+13-06-2019 23:06:25 apscheduler.scheduler:DEBUG:Looking for jobs to run
+13-06-2019 23:06:25 apscheduler.executors.default:INFO:Running job "id_scd_hotspot_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:25 CST)" (scheduled at 2019-08-13 23:06:25+08:00)
+13-06-2019 23:06:25 apscheduler.executors.default:INFO:Running job "id_scd_update_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:25 CST)" (scheduled at 2019-08-13 23:06:25+08:00)
+13-06-2019 23:06:25 apscheduler.scheduler:DEBUG:Next wakeup is due at 2019-08-13 23:06:30+08:00 (in 4.976540 seconds)
+13-06-2019 23:06:25 apscheduler.executors.default:INFO:Job "id_scd_hotspot_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:30 CST)" executed successfully
+13-06-2019 23:06:25 apscheduler.executors.default:INFO:Job "id_scd_update_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:30 CST)" executed successfully
+13-06-2019 23:06:30 apscheduler.scheduler:DEBUG:Looking for jobs to run
+13-06-2019 23:06:30 apscheduler.executors.default:INFO:Running job "id_scd_hotspot_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:30 CST)" (scheduled at 2019-08-13 23:06:30+08:00)
+13-06-2019 23:06:30 apscheduler.executors.default:INFO:Running job "id_scd_update_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:30 CST)" (scheduled at 2019-08-13 23:06:30+08:00)
+13-06-2019 23:06:30 apscheduler.scheduler:DEBUG:Next wakeup is due at 2019-08-13 23:06:35+08:00 (in 4.985255 seconds)
+13-06-2019 23:06:30 apscheduler.executors.default:INFO:Job "id_scd_hotspot_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:35 CST)" executed successfully
+13-06-2019 23:06:30 apscheduler.executors.default:INFO:Job "id_scd_update_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:35 CST)" executed successfully
+13-06-2019 23:06:35 apscheduler.scheduler:DEBUG:Looking for jobs to run
+13-06-2019 23:06:35 apscheduler.executors.default:INFO:Running job "id_scd_hotspot_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:35 CST)" (scheduled at 2019-08-13 23:06:35+08:00)
+13-06-2019 23:06:35 apscheduler.executors.default:INFO:Running job "id_scd_update_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:35 CST)" (scheduled at 2019-08-13 23:06:35+08:00)
+13-06-2019 23:06:35 apscheduler.scheduler:DEBUG:Next wakeup is due at 2019-08-13 23:06:40+08:00 (in 4.979968 seconds)
+13-06-2019 23:06:35 apscheduler.executors.default:INFO:Job "id_scd_update_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:40 CST)" executed successfully
+13-06-2019 23:06:35 apscheduler.executors.default:INFO:Job "id_scd_hotspot_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:40 CST)" executed successfully
+13-06-2019 23:06:40 apscheduler.scheduler:DEBUG:Looking for jobs to run
+13-06-2019 23:06:40 apscheduler.executors.default:INFO:Running job "id_scd_hotspot_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:40 CST)" (scheduled at 2019-08-13 23:06:40+08:00)
+13-06-2019 23:06:40 apscheduler.executors.default:INFO:Running job "id_scd_update_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:40 CST)" (scheduled at 2019-08-13 23:06:40+08:00)
+13-06-2019 23:06:40 apscheduler.scheduler:DEBUG:Next wakeup is due at 2019-08-13 23:06:45+08:00 (in 4.970682 seconds)
+13-06-2019 23:06:40 apscheduler.executors.default:INFO:Job "id_scd_hotspot_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:45 CST)" executed successfully
+13-06-2019 23:06:40 apscheduler.executors.default:INFO:Job "id_scd_update_keepdbalive (trigger: cron[day_of_week='*', hour='0-23', second='*/5'], next run at: 2019-08-13 23:06:45 CST)" executed successfully

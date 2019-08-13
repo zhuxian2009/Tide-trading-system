@@ -1,0 +1,88 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title></title>
+	<style>
+	*{margin:0;padding:0;}
+	
+	div{
+		font-size:1.5em;
+		color:red; 
+		background-color: #dfdfdf; 
+		border: 0 solid #1892B5; 
+		padding: 0px
+		margin: 0px;
+	}
+	
+	a:link,a:visited
+	{
+		display:block;
+		color:#000000;
+		background-color:#dfdfdf;
+		width:200px;
+		text-align:left;
+		padding:4px;
+		text-decoration:none;
+	}
+	a:hover,a:active
+	{
+		background-color:#dfdfdf;
+		font-weight:bold;
+	}
+	</style>
+	<link href="/static/css/style2.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<script type="text/javascript">
+		function show(parentid,childid) {
+			var parent = document.getElementById(parentid)
+			var child=document.getElementById(childid);
+			if (child.style.display == "none") {     
+			    child.style.display = "";
+				if(parentid=="id_menu_realtime")
+				{
+					parent.innerHTML = "- 实时监控"
+				}
+				else if(parentid=="id_menu_backtest")
+				{
+					parent.innerHTML = "- 历史回测"
+				}
+			}
+			else{     
+			    child.style.display = "none"; 
+				if(parentid=="id_menu_realtime")
+				{
+					parent.innerHTML = "+ 实时监控"
+				}
+				else if(parentid=="id_menu_backtest")
+				{
+					parent.innerHTML = "+ 历史回测"
+				}			   
+			}
+		}
+	</script>
+
+	<ul id="sellist">
+		<div id="realtime" style="color:blue" onclick="show('id_menu_realtime','child_realtime')" >
+		<li><a id="id_menu_realtime" href="#">+ 实时监控</a></li>
+		</div> 
+		<div id="child_realtime" style="display:none"> 
+				<li><a href="/query_bt_w" target="iframeContent">&nbsp;&nbsp;W底</a></li>
+				<li><a href="/static/query_backtest_break.html" target="iframeContent">&nbsp;&nbsp;突破</a></li>
+				<li><a href="/static/query_backtest_break.html" target="iframeContent">&nbsp;&nbsp;热点概念</a></li>
+		</div>
+	</ul>
+		
+	<ul id="sellist">
+		<div id="backtest" style="color:blue" onclick="show('id_menu_backtest','child_backtest')" > 
+		<li><a id="id_menu_backtest" href="#">+ 历史回测</a></li>
+		</div> 
+		<div id="child_backtest" style="display:none"> 
+				<li><a href="/query_bt_w" target="iframeContent">&nbsp;&nbsp;W底</a></li>
+				<li><a href="/static/query_backtest_break.html" target="iframeContent">&nbsp;&nbsp;突破</a></li>
+		</div>
+	</ul>
+
+</body>
+</html>

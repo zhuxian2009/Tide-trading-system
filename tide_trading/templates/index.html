@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>导航</title>
+<style type="text/css">
+
+	body
+	{
+		font-family : 微软雅黑,宋体;
+		font-size : 2em;
+	}
+
+	/*外层边框*/
+	div.outer{width:100%;height:300px;border:0px solid red;}
+	div.content{
+		width:120px;height:200px; /*设置大小*/
+		margin:20px auto;        /*设置左右边距自动以使其居中*/
+		border:1px solid red;
+		text-align:center
+	}
+
+	a:link,a:visited
+	{
+		display:block;
+		color:#000000;
+		background-color:#ffffff;
+		text-align:left;
+		text-decoration:none;
+	}
+	a:hover,a:active
+	{
+		background-color:#ffffff;
+		font-weight:bold;
+	}
+
+</style>
+
+<link href="/static/css/style2.css" rel="stylesheet" type="text/css" />
+<link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="header" id="head">
+	<div class="title">量化交易系统</div>	
+</div>
+<div class="outer">
+<div class="content">
+	<ul id="sellist">
+		<li><a href="/config">配置</a></li>
+		<li><a href="/query">查询</a></li>
+	</ul>
+</div>
+</div>
+</body>
+</html>

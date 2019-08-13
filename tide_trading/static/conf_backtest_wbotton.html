@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+    <h2>配置参数 > W底</h2>
+    <div align="center" style="width:1000px;height:500px;border:1px solid #F00">
+	<div class="logGet">
+        <form action="" method="post">
+            <div class="logD logDtip">
+                <p class="p1"><label>回测起止日期: </label>
+                    <input type="date" name="startday" value="2017-12-01" style="width:260px;height:42px;font-size: 28px;"/>~
+                    <input type="date" name="endday" value="2019-07-01"  style="width:260px;height:42px;font-size: 28px;"/>
+                </p>
+            </div>
+            <div class="logD logDtip">
+                <p class="p1"><label>回测区间范围: </label>
+                    <select name='minrange' id='minrange' style="width:260px;height:42px;font-size: 28px;">
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                      <option value="25">25</option>
+                    </select> ~
+                    <select name='maxrange' id='maxrange' style="width:260px;height:42px;font-size: 28px;">
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                      <option value="25">25</option>
+                      <option value="30">30</option>
+                    </select>
+                </p>
+            </div>
+        </form>
+    </div>
+    </div>
+    </body>
+</html>
