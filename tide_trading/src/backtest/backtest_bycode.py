@@ -76,7 +76,7 @@ class CBackTestBycode:
         #    os.remove(my_log_filename)
 
         #首次投入基础数据的数量
-        base_count = 70
+        base_count = 60
 
         #获取交易日期列表
         list_trade_day = self.GetOfflineTradeDays()
@@ -85,13 +85,17 @@ class CBackTestBycode:
         list_stock_basic = self.QueryAllStockBasic()
         #for code in list_stock_basic['ts_code']:
         temp = base_count
+
+        #从设定的开始日期，每次往后取base_count天数据，计算；
+        # 计算一次以后，开始日期往后移动一天
+        #例如：20190508~20190830，第一次回测数据是：20190508~20190802
         for day in list_trade_day:
             #不在指定区间的日期，不处理
             if day <= start_day or day >= end_day:
-                print('start_day=',start_day,'  lost day=',day)
+                print('start_day=', start_day, '  lost day=', day)
                 continue
 
-            #第一次投入的数据量
+            #保证每次进行计算的kdata数量，等于base_count天
             if temp > 0:
                 temp -= 1
                 continue
@@ -107,8 +111,8 @@ class CBackTestBycode:
 def main():
     starttime = datetime.datetime.now()
     backtest = CBackTestBycode()
-    start_day = '20190401'
-    end_day = '20190726'
+    start_day = '20190508'
+    end_day = '20190830'
     #使用多进程
     if backtest.use_mul_process:
         process_pool = Pool(backtest.process_cnt)
