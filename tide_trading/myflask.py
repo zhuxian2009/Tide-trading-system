@@ -116,6 +116,30 @@ def query_rt_hotconspt():
     print(str_html)
     return render_template('query_realtime_hotconspt.html', rt_value=args_ret, html=str_html)
 
+#查询实时数据  热点行业
+@app.route('/query_rt_hottrade', methods=['GET', 'POST'])
+def query_rt_hottrade():
+    print('in query_rt_hottrade')
+    myconf = conf.CConf(str_conf_path)
+    myconf.ReadConf()
+    db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+
+    list_ret = db.query_allhottrade()
+    db.disconnect_db()
+    if list_ret is None:
+        list_ret=('行业','0','000')
+
+    ################## 分页 ######################
+    req_page = request.args.get("page", 1)
+    print('query_rt_hottrade ... req_page=', req_page)
+    pager_obj = Pagination(req_page, len(list_ret), request.path, request.args, per_page_count=20)
+    print(request.args)
+    #根据分页的参数，截取部分数据显示
+    args_ret = list_ret[pager_obj.start:pager_obj.end]
+    str_html = pager_obj.page_html()
+    print(str_html)
+    return render_template('query_realtime_hottrade.html', rt_value=args_ret, html=str_html)
+
 #2.登录
 @app.route('/login', methods=['GET', 'POST'])
 def login():

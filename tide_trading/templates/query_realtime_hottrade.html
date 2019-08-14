@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link href="/static/css/style2.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+    <h2>查询 > 热点行业</h2>
+    <div align="center" style="width:1000px;height:500px;border:0px solid #F00">
+	<html>
+
+<table id="customers">
+<tr>
+<th>行业</th>
+<th>命中次数</th>
+<th>刷新时间</th>
+</tr>
+{% for i in rt_value %}
+<tr>
+<td>{{ i[0] }}</td>
+<td>{{ i[1] }}</td>
+<td>{{ i[2] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+		<nav aria-label="Page navigation">
+			<ul id="selpager">
+				{{ html|safe }}
+			</ul>
+		</nav>
+    </div>
+	
+    </body>
+</html>

@@ -128,10 +128,8 @@ class CSchedulerMgr:
                                    hour='0-23', second='*/5', day_of_week='mon-fri', id='id_scd_hotspot_am')'''
 
             #db保活,每小时连一次mysql，否则超过8小时会断开
-            self.scheduler.add_job(func=self.aps_keep_hotspotdb_alive, trigger='cron',
-                                   hour='0-23',second='*/5', day_of_week='*',  id='id_scd_hotspot_keepdbalive')
-            #self.scheduler.add_job(func=self.aps_hotspot, trigger='cron',
-            #                       hour='13-15', second='*/5', day_of_week='mon-fri', id='id_scd_hotspot_pm')
+            #self.scheduler.add_job(func=self.aps_keep_hotspotdb_alive, trigger='cron', hour='0-23',second='*/5', day_of_week='*',  id='id_scd_hotspot_keepdbalive')
+            self.scheduler.add_job(func=self.aps_hotspot, trigger='cron', hour='0-23', second='*/5', day_of_week='mon-fri', id='id_scd_hotspot_pm')
         except Exception as e:
             print('add_hotspot_job error! ... ' + e)
 
@@ -153,10 +151,9 @@ class CSchedulerMgr:
         # （表示一周中的第几天，既可以用0-6表示也可以用其英语缩写表示）
         try:
             # db保活,每小时连一次mysql，否则超过8小时会断开
-            self.scheduler.add_job(func=self.aps_keep_updatedb_alive, trigger='cron',
-                                   hour='0-23', second='*/5', day_of_week='*', id='id_scd_update_keepdbalive')
-            self.scheduler.add_job(func=self.aps_dataservice_update, trigger='cron',
-                                   hour=18, minute=10, day_of_week='mon-fri', id='id_dataservice_update')
+            #self.scheduler.add_job(func=self.aps_keep_updatedb_alive, trigger='cron',
+             #                      hour='0-23', second='*/5', day_of_week='*', id='id_scd_update_keepdbalive')
+            self.scheduler.add_job(func=self.aps_dataservice_update, trigger='cron',second='*/10', day_of_week='mon-fri', id='id_dataservice_update')
             # self.scheduler.add_job(func=self.aps_hotspot, trigger='cron',
             #                       hour='13-15', second='*/5', day_of_week='mon-fri', id='id_scd_hotspot_pm')
         except Exception as e:

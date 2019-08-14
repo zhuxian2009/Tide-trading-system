@@ -15,16 +15,17 @@ class CRT_Hotspot:
         #self.name = self.__class__.__name__
         #获取排行榜中多少条热点概念
         self.top_consept_num = 20
+        self.top_trade_num = 20
         myconf = conf.CConf(str_conf_path)
         myconf.ReadConf()
         self.db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
         print('CRT_Hotspot ... ', self.db)
 
 
-    # 取出次数最多的20个概念，推送
-    def top_consept(self,consept_count, N):
+    # 取出次数最多的20个概念，行业
+    def top_dict(self, my_dict, N):
         # 先排序，降序
-        sort_dict = sorted(consept_count.items(), key=lambda d: d[1], reverse=True)
+        sort_dict = sorted(my_dict.items(), key=lambda d: d[1], reverse=True)
         # print(sort_dict)
         if len(sort_dict) > N:
             return sort_dict[0:N]
@@ -61,10 +62,11 @@ class CRT_Hotspot:
         #while True:
         # 统计概念出现的次数
         consept_count = dict()
+        trade_count = dict()
         list_code = pLimit.processEx()
         # print(list_code)
 
-        # 统计所有涨停个股的概念
+        # 统计所有涨停个股的概念，行业
         for code in list_code:
             my_stock_info = pBaseInfo.get_stock_info(code)
             if my_stock_info is None:
@@ -78,17 +80,39 @@ class CRT_Hotspot:
                 else:
                     consept_count[consept] = 1
 
-        list_top = self.top_consept(consept_count, self.top_consept_num)
-        #print(dict_top20)
-        self.consept_to_db(list_top)
+            # 遍历每一个概念，进行统计，排序
+            for trade in my_stock_info.get_trade():
+                if trade in trade_count:
+                    count = trade_count[trade]
+                    trade_count[trade] = count + 1
+                else:
+                    trade_count[trade] = 1
+
+
+        #概念排序，取最顶部的N个概念，写数据库
+        list_top_consept = self.top_dict(consept_count, self.top_consept_num)
+        self.consept_to_db(list_top_consept)
+        list_top_trade = self.top_dict(trade_count, self.top_trade_num)
+        self.trade_to_db(list_top_trade)
 
     def consept_to_db(self, list_consept):
         #先清空，在写新数据
         self.db.truncate_hotconsept()
         cur_time = datetime.datetime.now()
-        str_time = datetime.datetime.strftime(cur_time, '%Y%m%d_%H%M%S')
+        str_time = datetime.datetime.strftime(cur_time, '%Y-%m-%d %H:%M:%S')
         for value in list_consept:
             #value[0],value[1],写数据库
             self.db.add_hotconsept(value[0], value[1], str_time)
+
+    def trade_to_db(self, list_trade):
+        #先清空，在写新数据
+        self.db.truncate_hottrade()
+        cur_time = datetime.datetime.now()
+        str_time = datetime.datetime.strftime(cur_time, '%Y-%m-%d %H:%M:%S')
+        for value in list_trade:
+            #value[0],value[1],写数据库
+            self.db.add_hottrade(value[0], value[1], str_time)
+            #print('trade_to_db', value[0], value[1], str_time)
+            pass
 
 

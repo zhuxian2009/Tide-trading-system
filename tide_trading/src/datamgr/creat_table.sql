@@ -96,6 +96,14 @@ CREATE TABLE t_hot_consept (
 	update_time CHAR(30) COMMENT '刷新时间'
 )ENGINE=innodb DEFAULT CHARSET=utf8;
 
+#热点行业
+CREATE TABLE t_hot_trade (
+	id INT auto_increment  PRIMARY KEY,
+	trade CHAR(100) NOT NULL COMMENT '行业',
+	times TINYINT NOT NULL COMMENT '命中次数',
+	update_time CHAR(30) COMMENT '刷新时间'
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
 #清空表数据
 truncate table t_kdata;
 truncate table t_kdata_bak;

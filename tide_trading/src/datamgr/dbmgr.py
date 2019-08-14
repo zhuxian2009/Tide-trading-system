@@ -6,6 +6,7 @@ import src.datamgr.t_kdata_down as t_kdata_down
 import src.datamgr.t_stock_basic as t_stock_basic
 import src.datamgr.t_backtest_wbottom as t_backtest_wbottom
 import src.datamgr.t_hot_consept as t_hot_consept
+import src.datamgr.t_hot_trade as t_hot_trade
 
 class CDBMgr:
     def __init__(self, host, user, password, database):
@@ -19,6 +20,7 @@ class CDBMgr:
         self.stockbasic = None
         self.bt_wbottom = None
         self.hotconsept = None
+        self.hottrade = None
         self.connect_db()
 
     #connect database
@@ -30,6 +32,7 @@ class CDBMgr:
         self.stockbasic = t_stock_basic.CT_StockBasic(self.connect)
         self.bt_wbottom = t_backtest_wbottom.CT_BT_WBottom(self.connect)
         self.hotconsept = t_hot_consept.CT_HotConsept(self.connect)
+        self.hottrade = t_hot_trade.CT_HotTrade(self.connect)
 
     def disconnect_db(self):
         self.connect.close()
@@ -304,3 +307,25 @@ class CDBMgr:
             return -1
 
         return self.hotconsept.truncate_hotconsept()
+
+    ############################################################################### t_hot_consept
+    # 增加回测结果数据
+    def add_hottrade(self, consept, times, update_time):
+        if self.connect is None:
+            return -1
+
+        self.hottrade.add_hottrade(consept, times, update_time)
+
+        # 根据股票代码，删除表中的数据
+
+    def query_allhottrade(self):
+        if self.connect is None:
+            return -1
+
+        return self.hottrade.query_allhottrade()
+
+    def truncate_hottrade(self):
+        if self.connect is None:
+            return -1
+
+        return self.hottrade.truncate_hottrade()
