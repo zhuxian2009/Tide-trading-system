@@ -82,7 +82,7 @@ class CBackTestBycode:
         list_trade_day = self.GetOfflineTradeDays()
 
         #获取股票列表
-        list_stock_basic = self.QueryAllStockBasic()
+        #list_stock_basic = self.QueryAllStockBasic()
         #for code in list_stock_basic['ts_code']:
         temp = base_count
 

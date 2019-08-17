@@ -104,6 +104,55 @@ CREATE TABLE t_hot_trade (
 	update_time CHAR(30) COMMENT '刷新时间'
 )ENGINE=innodb DEFAULT CHARSET=utf8;
 
+#当前时间点出价信息
+CREATE TABLE t_realtime_quotes (
+	id INT auto_increment  PRIMARY KEY,
+	name CHAR(40) COMMENT '股票名称',
+	open DECIMAL(10,2)  COMMENT '开盘价',
+	pre_close DECIMAL(10,2)  COMMENT '昨日收盘价',
+	price DECIMAL(10,2) COMMENT '当前价格',
+	high DECIMAL(10,2) COMMENT '最高价',
+	low DECIMAL(10,2) COMMENT '最低价',
+	bid DECIMAL(10,2) COMMENT '竞买价，即买一报价',
+	ask DECIMAL(10,2) COMMENT '竞卖价，即卖一报价',
+	amount DECIMAL(25,2) COMMENT '成交额(千元)',
+	volume DECIMAL(25,2) COMMENT '成交量(手)',
+	b1_v DECIMAL(10,2) COMMENT '委买一，笔数',
+	b1_p DECIMAL(10,2) COMMENT '委买一，价格',
+	b2_v DECIMAL(10,2) COMMENT '委买二，笔数',
+	b2_p DECIMAL(10,2) COMMENT '委买二，价格',
+	b3_v DECIMAL(10,2) COMMENT '委买三，笔数',
+	b3_p DECIMAL(10,2) COMMENT '委买三，价格',
+	b4_v DECIMAL(10,2) COMMENT '委买四，笔数',
+	b4_p DECIMAL(10,2) COMMENT '委买四，价格',
+	b5_v DECIMAL(10,2) COMMENT '委买五，笔数',
+	b5_p DECIMAL(10,2) COMMENT '委买五，价格',
+    a1_v DECIMAL(10,2) COMMENT '委卖一，笔数',
+	a1_p DECIMAL(10,2) COMMENT '委卖一，价格',
+	a2_v DECIMAL(10,2) COMMENT '委卖二，笔数',
+	a2_p DECIMAL(10,2) COMMENT '委卖二，价格',
+	a3_v DECIMAL(10,2) COMMENT '委卖三，笔数',
+	a3_p DECIMAL(10,2) COMMENT '委卖三，价格',
+	a4_v DECIMAL(10,2) COMMENT '委卖四，笔数',
+	a4_p DECIMAL(10,2) COMMENT '委卖四，价格',
+	a5_v DECIMAL(10,2) COMMENT '委卖五，笔数',
+	a5_p DECIMAL(10,2) COMMENT '委卖五，价格',
+	date CHAR(20)  COMMENT '交易日期',
+	time CHAR(20)  COMMENT '交易时间',
+	code CHAR(10) NOT NULL UNIQUE COMMENT '股票代码'
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
+#筹码集中估算
+CREATE TABLE t_chip_concent (
+	id INT auto_increment  PRIMARY KEY,
+	code CHAR(10) NOT NULL UNIQUE COMMENT '股票代码',
+	name CHAR(40) COMMENT '股票名称',
+	ab_gain DECIMAL(10,2) COMMENT '卖一ask/买一bid，间隔涨幅',
+	date CHAR(20)  COMMENT '交易日期',
+	time CHAR(20)  COMMENT '交易时间'
+	UNIQUE KEY `UK_code`(`code`,`date`,`time`)
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
 #清空表数据
 truncate table t_kdata;
 truncate table t_kdata_bak;
@@ -139,4 +188,7 @@ delete from t_kdata_down where trade_day='20190802';
 delete from t_trade_day where trade_day='20190802';
 select count(*) from t_kdata_down where code = '000001.SZ' and trade_day>='20190802' and trade_day<='20190802';
 select open,close,high,low,vol,trade_day from t_kdata_down where code = '000001.SZ' and trade_day>=%s and trade_day<=%s order by trade_day ASC limit %s;
+
+#查询小于60个交易日的个股
+select code,count(code) from t_kdata group by code HAVING COUNT(code)<60;
               

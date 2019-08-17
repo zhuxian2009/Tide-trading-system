@@ -72,6 +72,8 @@ class CWBotton(myselectorbase.CMySelectorBase):
         # 4. 比较左底与右底的涨幅，是否相差<3%
         # 5. 比较左底与右底的macd值，是否形成底背离
         # 6. 终点日期收盘价，是否突破颈线位;并且最低点在颈线位下方
+        #实践出真理
+        #突破颈线位时，连续三天温和放量，回踩重要支撑位：ma5，ma10，颈线位等，缩量
         # 以下条件可选
         # 7. 比较左底与右底的成交额，是否左底成交额>右底成交额
         # 8. 比较左底与极大值之间涨跌幅，是否>N%(判断颈线位幅度)
@@ -209,6 +211,11 @@ class CWBotton(myselectorbase.CMySelectorBase):
         for code in stock_basic['ts_code']:
 
             all_stock_kdata = self.LoadData(code, self.start_day, self.end_day)
+
+            #交易日小于60日，不处理
+            if all_stock_kdata is None or len(all_stock_kdata) < 60:
+                print(code, 'is empty! --- wbottom.py Process')
+                continue
 
             #执行需要1毫秒
             #starttime2 = datetime.datetime.now()

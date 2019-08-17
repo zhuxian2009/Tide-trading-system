@@ -7,6 +7,8 @@ import src.datamgr.t_stock_basic as t_stock_basic
 import src.datamgr.t_backtest_wbottom as t_backtest_wbottom
 import src.datamgr.t_hot_consept as t_hot_consept
 import src.datamgr.t_hot_trade as t_hot_trade
+import src.datamgr.t_realtime_quotes as t_realtime_quotes
+import src.datamgr.t_chipconcent as t_chipconcent
 
 class CDBMgr:
     def __init__(self, host, user, password, database):
@@ -21,6 +23,8 @@ class CDBMgr:
         self.bt_wbottom = None
         self.hotconsept = None
         self.hottrade = None
+        self.realtime_quotes = None
+        self.chipconcent = None
         self.connect_db()
 
     #connect database
@@ -33,6 +37,8 @@ class CDBMgr:
         self.bt_wbottom = t_backtest_wbottom.CT_BT_WBottom(self.connect)
         self.hotconsept = t_hot_consept.CT_HotConsept(self.connect)
         self.hottrade = t_hot_trade.CT_HotTrade(self.connect)
+        self.realtime_quotes = t_realtime_quotes.CT_Realtime_Quotes(self.connect)
+        self.chipconcent = t_chipconcent.CT_Chip_Concent(self.connect)
 
     def disconnect_db(self):
         self.connect.close()
@@ -329,3 +335,43 @@ class CDBMgr:
             return -1
 
         return self.hottrade.truncate_hottrade()
+
+    #######################实时出价 t_quotes_many
+        # 批量增加实时出价数据
+    def add_realtime_quotes_many(self, datas):
+        if self.connect is None:
+            return -1
+
+        self.realtime_quotes.add_realtime_quotes_many(datas)
+
+    def query_realtime_quotes(self):
+        if self.connect is None:
+            return -1
+
+        return self.realtime_quotes.query_realtime_quotes()
+
+    def truncate_realtime_quotes(self):
+        if self.connect is None:
+            return -1
+
+        return self.realtime_quotes.truncate_realtime_quotes()
+
+    #######################实时出价 t_chipconcent
+    # 批量增加实时出价数据
+    def add_chipconcent_many(self, datas):
+        if self.connect is None:
+            return -1
+
+        self.chipconcent.add_chip_concent_many(datas)
+
+    def query_chipconcent(self, date):
+        if self.connect is None:
+            return -1
+
+        return self.chipconcent.query_chip_concent(date)
+
+    def truncate_chipconcent(self):
+        if self.connect is None:
+            return -1
+
+        return self.chipconcent.truncate_chip_concent()

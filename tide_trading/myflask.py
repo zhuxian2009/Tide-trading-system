@@ -140,6 +140,35 @@ def query_rt_hottrade():
     print(str_html)
     return render_template('query_realtime_hottrade.html', rt_value=args_ret, html=str_html)
 
+#筹码已经集中
+@app.route('/query_chipconcent', methods=['GET', 'POST'])
+def query_chipconcent():
+    print('in query_chipconcent')
+    myconf = conf.CConf(str_conf_path)
+    myconf.ReadConf()
+    db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+
+    #当天日期
+    now_time = datetime.datetime.now()
+    #today = now_time.strftime('%Y-%m-%d')
+    today = '2019-08-16'
+
+    list_ret = db.query_chipconcent(today)
+    db.disconnect_db()
+    if list_ret is None:
+        list_ret=('代码','名称','间隔','time','day')
+
+    ################## 分页 ######################
+    req_page = request.args.get("page", 1)
+    print('query_chipconcent ... req_page=', req_page)
+    pager_obj = Pagination(req_page, len(list_ret), request.path, request.args, per_page_count=20)
+    print(request.args)
+    #根据分页的参数，截取部分数据显示
+    args_ret = list_ret[pager_obj.start:pager_obj.end]
+    str_html = pager_obj.page_html()
+    print(str_html)
+    return render_template('query_chipconcent.html', rt_value=args_ret, html=str_html)
+
 #2.登录
 @app.route('/login', methods=['GET', 'POST'])
 def login():

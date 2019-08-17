@@ -1,6 +1,7 @@
 # coding=utf-8
 import os
-import src.analysis.limitconcept as limitconcept
+#import src.analysis.limitconcept as limitconcept
+import src.realtime.rt_limitconcept as limitconcept
 import src.datamgr.baseinfo as baseinfo
 import datetime
 import src.datamgr.dbmgr as dbmgr
@@ -46,7 +47,7 @@ class CRT_Hotspot:
     #share 共享内存
     def aps_hotspot(self, share):
         cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        print(cur_time, 'aps_hotspot')
+        print(cur_time, 'in aps_hotspot')
         share.value = cur_time
         
         # os.getpid()获取当前进程id     os.getppid()获取父进程id
@@ -57,7 +58,7 @@ class CRT_Hotspot:
         pBaseInfo.read_excel()
 
         # 获取当前所有涨停的个股
-        pLimit = limitconcept.CLimitConcept()
+        pLimit = limitconcept.CRT_LimitConcept(self.db)
 
         #while True:
         # 统计概念出现的次数

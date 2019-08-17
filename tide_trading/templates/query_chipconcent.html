@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link href="/static/css/style2.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+    <h2>查询 > 筹码集中</h2>
+    <div align="center" style="width:1000px;height:500px;border:0px solid #F00">
+	<html>
+
+<table id="customers">
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th>间隔涨幅（%）</th>
+<th>时间</th>
+<th>日期</th>
+</tr>
+{% for i in rt_value %}
+<tr>
+<td>{{ i[0] }}</td>
+<td>{{ i[1] }}</td>
+<td>{{ i[2] }}</td>
+<td>{{ i[4] }}</td>
+<td>{{ i[3] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+		<nav aria-label="Page navigation">
+			<ul id="selpager">
+				{{ html|safe }}
+			</ul>
+		</nav>
+    </div>
+	
+    </body>
+</html>
