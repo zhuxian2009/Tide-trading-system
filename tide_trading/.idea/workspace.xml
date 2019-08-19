@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="228cb14e-a913-49ed-a178-52fbf1d523fc" name="Default Changelist" comment="回测模块加入注释">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Demo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/dataservice_mysql_20190811_191337.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/log/dataservice_mysql_20190813_230614.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/log/dataservice_mysql_20190813_234506.log" beforeDir="false" />
@@ -11,17 +10,16 @@
       <change beforePath="$PROJECT_DIR$/log/dataservice_mysql_20190814_003355.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/log/nohup.out" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/myflask.py" beforeDir="false" afterPath="$PROJECT_DIR$/myflask.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/analysis/limitconcept - 副本.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/analysis/limitconcept.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/analysis/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backtest/backtest_bycode.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtest/backtest_bycode.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/schedulermgr.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/schedulermgr.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/datamgr/creat_table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/datamgr/creat_table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datamgr/dataservice_mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/datamgr/dataservice_mysql.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/datamgr/dbmgr.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/datamgr/dbmgr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/realtime/rt_hotspot.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/realtime/rt_hotspot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stockselector/wbottom.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/stockselector/wbottom.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/query_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/query_menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/回测总结.txt" beforeDir="false" afterPath="$PROJECT_DIR$/回测总结.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datamgr/t_chipconcent.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/datamgr/t_chipconcent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datamgr/t_kdata.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/datamgr/t_kdata.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datamgr/t_trade_day.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/datamgr/t_trade_day.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/query_chipconcent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/query_chipconcent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/query_realtime_hotconspt.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/query_realtime_hotconspt.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,48 +33,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/realtime/rt_hotspot.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
-              <folding>
-                <element signature="e#15#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/realtime/rt_limitconcept.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="42" selection-start-line="42" selection-end-line="42" />
-              <folding>
-                <element signature="e#15#47#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/realtime/rt_chipconcent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="69" selection-start-line="69" selection-end-line="69" />
+            <state relative-caret-position="235">
+              <caret line="54" column="36" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="36" />
               <folding>
                 <element signature="e#15#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stockselector/wbottom.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="75" column="47" selection-start-line="75" selection-start-column="47" selection-end-line="75" selection-end-column="47" />
-              <folding>
-                <element signature="e#15#27#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -85,8 +47,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/common/schedulermgr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="143" column="33" lean-forward="true" selection-start-line="143" selection-start-column="33" selection-end-line="143" selection-end-column="33" />
+            <state relative-caret-position="349">
+              <caret line="172" column="13" selection-start-line="172" selection-start-column="13" selection-end-line="172" selection-end-column="13" />
               <folding>
                 <element signature="e#142#198#0" expanded="true" />
               </folding>
@@ -97,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/datamgr/dataservice_mysql.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="64" column="41" lean-forward="true" selection-start-line="63" selection-start-column="8" selection-end-line="64" selection-end-column="41" />
+            <state relative-caret-position="254">
+              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -106,8 +68,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/datamgr/dbmgr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="370" selection-start-line="370" selection-end-line="370" />
+            <state relative-caret-position="276">
+              <caret line="211" column="27" selection-start-line="211" selection-start-column="8" selection-end-line="211" selection-end-column="27" />
               <folding>
                 <element signature="e#14#28#0" expanded="true" />
               </folding>
@@ -115,20 +77,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/datamgr/t_chipconcent.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/datamgr/t_trade_day.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="74" column="100" selection-start-line="74" selection-start-column="100" selection-end-line="74" selection-end-column="100" />
+            <state relative-caret-position="265">
+              <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myflask.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="155" selection-start-line="155" selection-end-line="155" />
+            <state relative-caret-position="235">
+              <caret line="163" column="5" selection-start-line="163" selection-start-column="5" selection-end-line="163" selection-end-column="5" />
               <folding>
                 <element signature="e#14#82#0" expanded="true" />
               </folding>
@@ -137,10 +99,40 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/pandas/core/indexes/datetimes.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="2748" selection-start-line="2748" selection-end-line="2748" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/matplotlib/pyplot.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="148">
+              <caret line="2791" column="4" selection-start-line="2791" selection-start-column="4" selection-end-line="2791" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/datamgr/baseinfo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="110" selection-start-line="110" selection-end-line="110" />
+              <folding>
+                <element signature="e#15#47#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/datamgr/t_kdata.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="304" column="26" selection-start-line="304" selection-start-column="26" selection-end-line="304" selection-end-column="26" />
+            <state relative-caret-position="132">
+              <caret line="359" column="28" selection-start-line="359" selection-start-column="15" selection-end-line="359" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -156,8 +148,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>QueryPartKDataDown</find>
-      <find>fetchone</find>
       <find>NeedUpdateData</find>
       <find>PartDataProcess</find>
       <find>logging</find>
@@ -186,6 +176,8 @@
       <find>day</find>
       <find>strftime</find>
       <find>rt_quotes</find>
+      <find>baseinfo</find>
+      <find>select</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -194,7 +186,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/static/conf_left.html" />
         <option value="$PROJECT_DIR$/static/index.html" />
         <option value="$PROJECT_DIR$/static/conf_backtest.html" />
         <option value="$PROJECT_DIR$/static/conf_list.html" />
@@ -209,7 +200,6 @@
         <option value="$PROJECT_DIR$/src/datamgr/t_hot_consept.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="//49.235.44.90/share/hdf5test/myflask.py" />
-        <option value="$PROJECT_DIR$/src/datamgr/t_trade_day.py" />
         <option value="$PROJECT_DIR$/src/datamgr/t_kdata_down.py" />
         <option value="Z:/hdf5test/src/datamgr/dataservice_mysql.py" />
         <option value="$PROJECT_DIR$/src/common/conf.py" />
@@ -224,12 +214,10 @@
         <option value="Z:/hdf5test/templates/conf_status.html" />
         <option value="Z:/hdf5test/myflask.py" />
         <option value="$PROJECT_DIR$/src/common/statistics.py" />
-        <option value="$PROJECT_DIR$/src/datamgr/t_kdata.py" />
         <option value="Z:/hdf5test/src/common/schedulermgr.py" />
         <option value="$PROJECT_DIR$/src/common/tools.py" />
         <option value="$PROJECT_DIR$/src/common/filelock.py" />
         <option value="$PROJECT_DIR$/src/datamgr/baseinfo.py" />
-        <option value="$PROJECT_DIR$/src/datamgr/dataservice_mysql.py" />
         <option value="$PROJECT_DIR$/src/datamgr/t_hot_trade.py" />
         <option value="$PROJECT_DIR$/src/backtest/backtest_bycode.py" />
         <option value="$PROJECT_DIR$/src/analysis/limitconcept.py" />
@@ -239,12 +227,16 @@
         <option value="$PROJECT_DIR$/src/realtime/rt_hotspot.py" />
         <option value="$PROJECT_DIR$/src/realtime/rt_limitconcept.py" />
         <option value="$PROJECT_DIR$/src/realtime/rt_quotes.py" />
-        <option value="$PROJECT_DIR$/src/common/schedulermgr.py" />
         <option value="$PROJECT_DIR$/src/stockselector/wbottom.py" />
-        <option value="$PROJECT_DIR$/src/datamgr/dbmgr.py" />
         <option value="$PROJECT_DIR$/src/realtime/rt_chipconcent.py" />
-        <option value="$PROJECT_DIR$/myflask.py" />
         <option value="$PROJECT_DIR$/src/datamgr/t_chipconcent.py" />
+        <option value="$PROJECT_DIR$/src/datamgr/t_kdata.py" />
+        <option value="$PROJECT_DIR$/src/datamgr/t_trade_day.py" />
+        <option value="$PROJECT_DIR$/src/datamgr/dbmgr.py" />
+        <option value="$PROJECT_DIR$/src/datamgr/dataservice_mysql.py" />
+        <option value="$PROJECT_DIR$/src/common/schedulermgr.py" />
+        <option value="$PROJECT_DIR$/templates/query_realtime_hotconspt.html" />
+        <option value="$PROJECT_DIR$/myflask.py" />
       </list>
     </option>
   </component>
@@ -260,6 +252,28 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="datamgr" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -277,28 +291,6 @@
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="datamgr" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="stockselector" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -431,7 +423,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565811533560</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="加入实时监控——筹码集中程度">
+      <created>1566060489153</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1566060489153</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -447,19 +446,19 @@
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5991649" visible="true" weight="0.15232722" />
-      <window_info id="Structure" order="1" sideWeight="0.40083507" side_tool="true" visible="true" weight="0.15232722" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.595339" visible="true" weight="0.15232722" />
+      <window_info id="Structure" order="1" sideWeight="0.40466103" side_tool="true" visible="true" weight="0.15232722" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.3293371" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6093089" weight="0.36473754" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.4689704" visible="true" weight="0.35531628" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6057828" visible="true" weight="0.36473754" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.46685472" weight="0.35531628" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4992948" weight="0.3293011" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4992948" weight="0.32974428" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4992948" weight="0.3293011" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.53102964" side_tool="true" visible="true" weight="0.35531628" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.3942172" side_tool="true" visible="true" weight="0.36473754" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49858958" weight="0.3293011" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -480,7 +479,8 @@
     <MESSAGE value="base" />
     <MESSAGE value="回测模块加入注释" />
     <MESSAGE value="加入热点行业统计" />
-    <option name="LAST_COMMIT_MESSAGE" value="加入热点行业统计" />
+    <MESSAGE value="加入实时监控——筹码集中程度" />
+    <option name="LAST_COMMIT_MESSAGE" value="加入实时监控——筹码集中程度" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -526,19 +526,25 @@
           <option name="timeStamp" value="337" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/myflask.py</url>
-          <line>155</line>
-          <option name="timeStamp" value="355" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/myflask.py</url>
-          <line>153</line>
-          <option name="timeStamp" value="356" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/datamgr/t_chipconcent.py</url>
           <line>74</line>
           <option name="timeStamp" value="357" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="NONE" type="python-line">
+          <url>file://$PROJECT_DIR$/myflask.py</url>
+          <line>178</line>
+          <log-expression expression="myconf.ReadConf()&#10;    db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')&#10;&#10;    list_ret = db.query_allhotconsept()&#10;    db.disconnect_db()" language="Python" />
+          <option name="timeStamp" value="358" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/realtime/rt_hotspot.py</url>
+          <line>56</line>
+          <option name="timeStamp" value="359" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/myflask.py</url>
+          <line>145</line>
+          <option name="timeStamp" value="368" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -550,26 +556,20 @@
       </default-breakpoints>
     </breakpoint-manager>
   </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="breakpointLogExpression">
+      <expression>
+        <expression-string>myconf.ReadConf()
+    db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+
+    list_ret = db.query_allhotconsept()
+    db.disconnect_db()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://Z:/hdf5test/src/backtest/backtest_bycode.py" />
-    <entry file="file://Z:/hdf5test/src/stockselector/myselectorbase.py" />
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/apscheduler/triggers/cron/fields.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="52" column="8" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/apscheduler/triggers/cron/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://Z:/hdf5test/src/common/pipclient.py" />
-    <entry file="file://Z:/hdf5test/src/common/pipserver.py" />
-    <entry file="file://Z:/hdf5test/src/realtime/rt_hotspot.py" />
     <entry file="file://Z:/hdf5test/templates/query.html" />
     <entry file="file://Z:/hdf5test/templates/conf.html" />
     <entry file="file://Z:/hdf5test/templates/query_realtime_hotconspt.html" />
@@ -634,16 +634,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/datamgr/baseinfo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="41" column="17" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="17" />
-          <folding>
-            <element signature="e#15#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/common/tools.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1406">
@@ -658,13 +648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
           <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/backtest/backtest_bycode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="47" column="20" lean-forward="true" selection-start-line="46" selection-start-column="8" selection-end-line="47" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -750,26 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stockselector/wbottom.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="75" column="47" selection-start-line="75" selection-start-column="47" selection-end-line="75" selection-end-column="47" />
-          <folding>
-            <element signature="e#15#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/realtime/rt_hotspot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
-          <folding>
-            <element signature="e#15#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/datamgr/t_realtime_quotes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-523">
@@ -777,74 +740,156 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/datamgr/t_kdata.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="304" column="26" selection-start-line="304" selection-start-column="26" selection-end-line="304" selection-end-column="26" />
-        </state>
-      </provider>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/base64.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/realtime/rt_limitconcept.py">
+    <entry file="file://$PROJECT_DIR$/src/stockselector/wbottom.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        <state relative-caret-position="1311">
+          <caret line="75" column="47" selection-start-line="75" selection-start-column="47" selection-end-line="75" selection-end-column="47" />
           <folding>
-            <element signature="e#15#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/datamgr/dataservice_mysql.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="64" column="41" lean-forward="true" selection-start-line="63" selection-start-column="8" selection-end-line="64" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/schedulermgr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="143" column="33" lean-forward="true" selection-start-line="143" selection-start-column="33" selection-end-line="143" selection-end-column="33" />
-          <folding>
-            <element signature="e#142#198#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/realtime/rt_chipconcent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="69" selection-start-line="69" selection-end-line="69" />
-          <folding>
-            <element signature="e#15#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/datamgr/dbmgr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="370" selection-start-line="370" selection-end-line="370" />
-          <folding>
-            <element signature="e#14#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myflask.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="155" selection-start-line="155" selection-end-line="155" />
-          <folding>
-            <element signature="e#14#82#0" expanded="true" />
+            <element signature="e#15#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/datamgr/t_chipconcent.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="74" column="100" selection-start-line="74" selection-start-column="100" selection-end-line="74" selection-end-column="100" />
+        <state relative-caret-position="1748">
+          <caret line="94" column="19" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backtest/backtest_bycode.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="56" column="62" selection-start-line="54" selection-start-column="8" selection-end-line="56" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/realtime/rt_limitconcept.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-642">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="22" />
+          <folding>
+            <element signature="e#15#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/realtime/rt_hotspot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="76" column="58" selection-start-line="71" selection-start-column="12" selection-end-line="76" selection-end-column="58" />
+          <folding>
+            <element signature="e#15#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/datamgr/baseinfo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="110" selection-start-line="110" selection-end-line="110" />
+          <folding>
+            <element signature="e#15#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/werkzeug/debug/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="329" selection-start-line="329" selection-end-line="329" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/flask/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="1934" selection-start-line="1934" selection-end-line="1934" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/datamgr/t_kdata.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="359" column="28" selection-start-line="359" selection-start-column="15" selection-end-line="359" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/datamgr/t_trade_day.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/datamgr/dbmgr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="211" column="27" selection-start-line="211" selection-start-column="8" selection-end-line="211" selection-end-column="27" />
+          <folding>
+            <element signature="e#14#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/realtime/rt_chipconcent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="54" column="36" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="36" />
+          <folding>
+            <element signature="e#15#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/datamgr/dataservice_mysql.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/schedulermgr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="172" column="13" selection-start-line="172" selection-start-column="13" selection-end-line="172" selection-end-column="13" />
+          <folding>
+            <element signature="e#142#198#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/query_realtime_hotconspt.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/matplotlib/pyplot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="2791" column="4" selection-start-line="2791" selection-start-column="4" selection-end-line="2791" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/pandas/core/indexes/datetimes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="2748" selection-start-line="2748" selection-end-line="2748" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myflask.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="163" column="5" selection-start-line="163" selection-start-column="5" selection-end-line="163" selection-end-column="5" />
+          <folding>
+            <element signature="e#14#82#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

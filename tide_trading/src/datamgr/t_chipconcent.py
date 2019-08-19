@@ -72,7 +72,8 @@ class CT_Chip_Concent:
         cursor = self.connect.cursor()
 
         # sql语句,DESC降序，ASC升序
-        sql = "select code,name,ab_gain,date,time from t_chip_concent where date=%s order by ab_gain DESC;"
+        #sql = "select code,name,ab_gain,date,time from t_chip_concent where date=%s order by ab_gain DESC;"
+        sql="select code,name,ab_gain,date,time,count(code) as num from t_chip_concent where date=%s group by code order by ab_gain DESC;"
         print(">>>" + sql)
 
         try:

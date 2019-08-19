@@ -108,6 +108,13 @@ class CDBMgr:
 
         return self.kdata.query_kdata_by_day(code, start_day, end_day, before_days)
 
+    #查询某日的涨停个股
+    def query_limit(self, day):
+        if self.connect is None:
+            return -1
+
+        return self.kdata.query_limit(day)
+
     #把kdata_down的数据clone过来
     def clone_kdata_down(self):
         if self.connect is None:
@@ -200,6 +207,13 @@ class CDBMgr:
             return -1
 
         return self.trade_day.query_tradeday()
+
+    #最近的N个交易日
+    def query_last_tradeday(self, N):
+        if self.connect is None:
+            return -1
+
+        return self.trade_day.query_last_tradeday(N)
 
     ####################################################################### t_stock_basic
     #增加k线数据

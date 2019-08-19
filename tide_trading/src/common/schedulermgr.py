@@ -163,9 +163,11 @@ class CSchedulerMgr:
         try:
             #db保活,每小时连一次mysql，否则超过8小时会断开
             #self.scheduler.add_job(func=self.aps_keep_hotspotdb_alive, trigger='cron', hour='0-23',second='*/5', day_of_week='*',  id='id_scd_hotspot_keepdbalive')
-            self.scheduler.add_job(func=self.aps_hotspot, trigger='cron', hour='0-23', second='*/10', day_of_week='*', id='id_scd_hotspot_pm')
-            self.scheduler.add_job(func=self.aps_reatime_quotes, trigger='cron', hour='0-23', second='*/10', day_of_week='*', id='id_scd_quotes')
-            self.scheduler.add_job(func=self.aps_rt_chipconcent, trigger='cron', hour='0-23', second='*/10', day_of_week='*', id='id_scd_chipconcent')
+
+            #self.scheduler.add_job(func=self.aps_hotspot, trigger='cron', hour='0-23', second='*/10', day_of_week='*', id='id_scd_hotspot_pm')
+            #self.scheduler.add_job(func=self.aps_reatime_quotes, trigger='cron', hour='0-23', second='*/10', day_of_week='*', id='id_scd_quotes')
+            #self.scheduler.add_job(func=self.aps_rt_chipconcent, trigger='cron', hour='0-23', second='*/10', day_of_week='*', id='id_scd_chipconcent')
+            pass
             #self.scheduler.add_job(func=self.aps_quotes_keepdbalive, trigger='cron', hour='0-23', second='*/10',day_of_week='*', id='id_scd_quotes_keepdbalive')
             # 更新最新k线的任务
             #self.scheduler.add_job(func=self.aps_dataservice_update, trigger='cron', second='*/10', day_of_week='mon-fri', id='id_dataservice_update')

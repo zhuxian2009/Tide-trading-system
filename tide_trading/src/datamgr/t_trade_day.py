@@ -97,3 +97,32 @@ class CT_Tradeday:
         # 关闭光标对象
         cursor.close()
         return None
+
+    def query_last_tradeday(self, N):
+        if self.connect is None:
+            return None
+
+        # 得到一个可以执行SQL语句的光标对象
+        cursor = self.connect.cursor()
+
+        # sql语句
+        sql = " select trade_day from (select * from t_trade_day order by trade_day DESC limit %s) as tmp order by trade_day ASC;"
+        #print(sql)
+
+        try:
+            # 执行SQL语句
+            cursor.execute(sql, (N,))
+            # 把修改的数据提交到数据库
+            self.connect.commit()
+
+            result = cursor.fetchall()
+            cursor.close()
+            return result
+        except Exception as e:
+            # 捕捉到错误就回滚
+            self.connect.rollback()
+            print(e)
+
+        # 关闭光标对象
+        cursor.close()
+        return None

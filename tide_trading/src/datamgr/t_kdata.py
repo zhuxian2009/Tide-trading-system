@@ -318,6 +318,34 @@ class CT_Kdata:
 
         return None
 
+    def query_limit(self, day):
+        if self.connect is None:
+            return None
+
+        # 得到一个可以执行SQL语句的光标对象
+        cursor = self.connect.cursor()
+
+        # sql语句,DESC降序，ASC升序
+        sql = "select code from t_kdata where pct_chg>9.5 and trade_day=%s order by code ASC;"
+
+        try:
+            # 执行SQL语句
+            cursor.execute(sql, (day, ))
+            # 把修改的数据提交到数据库
+            self.connect.commit()
+
+            result = cursor.fetchall()
+
+            # 关闭光标对象
+            cursor.close()
+            return result
+        except Exception as e:
+            # 捕捉到错误就回滚
+            self.connect.rollback()
+            print(e)
+
+        return None
+
     def query_kdata_by_day(self, code, start_day, end_day, before_days):
         if self.connect is None:
             return None

@@ -9,6 +9,13 @@ import datetime
 #import src.datamgr.baseinfo as baseinfo
 import src.common.schedulermgr as schedulermgr
 import os
+import matplotlib.pyplot as plt
+import numpy as np
+import base64
+from io import BytesIO
+import pandas as pd
+import src.datamgr.baseinfo as baseinfo
+import matplotlib.dates as mdates
 #任务调度，阻塞
 #from flask_apscheduler import APScheduler as myScheduler
 #from apscheduler.schedulers.background import BackgroundScheduler as myScheduler
@@ -92,6 +99,79 @@ def query_bt_w():
     print(str_html)
     return render_template('query_backtest_wbotton.html', wb_value=args_ret, html=str_html)
 
+#查看指定热点的动态图
+@app.route('/query_rt_hotconspt_one/<conspt>', methods=['GET', 'POST'])
+def query_rt_hotconspt_one(conspt):
+    print('query_rt_hotconspt_one...', conspt)
+    #数据
+    myconf = conf.CConf(str_conf_path)
+    myconf.ReadConf()
+    db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+
+    trade_day = db.query_last_tradeday(10)
+    #trade_day = pd.DataFrame(list(result), columns=['trade_day'])
+
+    # 加载股票概念
+    pBaseInfo = baseinfo.CBaseinfo()
+    pBaseInfo.read_excel()
+
+    conspt_df = pd.DataFrame(columns=['date', 'count'])
+    list_date = list()
+    list_count = list()
+    for day in trade_day:
+        codes = db.query_limit(day[0])
+        print('limit num=', len(codes))
+
+        count = 0
+        #遍历所有code
+        for code in codes:
+            #去除.SZ .SH的后缀
+            str_code = code[0][0:6]
+            my_stock_info = pBaseInfo.get_stock_info(str_code)
+            if my_stock_info is None:
+                print(code, ' is not exist!aps_hotspot')
+                continue
+
+            consepts = my_stock_info.get_conseption()
+            #查询的概念是否在list中
+            if conspt in consepts:
+                count = count + 1
+
+        list_date.append(day[0])
+        list_count.append(count)
+        print(day[0])
+
+    d = {'date': list_date,
+         'count': list_count}
+    conspt_df = pd.DataFrame(d)
+    print(conspt_df)
+
+    db.disconnect_db()
+    #############################################绘图测试
+    '''X = np.linspace(-np.pi, np.pi, 256, endpoint=True)  # -π to+π的256个值
+    C, S = np.cos(X), np.sin(X)
+    # plt.rcParams['figure.dpi'] = 100  # 分辨率
+    # plt.rcParams['savefig.dpi'] = 100  # 图片像素
+    plt.rcParams['figure.figsize'] = (8.0, 4.0)  # 设置figure_size尺寸
+    plt.plot(X, C)
+    plt.plot(X, S)'''
+    plt.figure(figsize=(10, 4))
+    #plt.xticks(pd.date_range(list_date[0], list_date[-1]), rotation=45)
+    #fmt = mdates.DateFormatter('%Y%m%D')
+    xs = [datetime.datetime.strptime(d, '%Y%m%d').date() for d in conspt_df['date']]
+    plt.plot(xs, conspt_df['count'], 'o-')
+
+    #plt.savefig('ttt.png')
+    # figure 保存为二进制文件
+    buffer = BytesIO()
+    plt.savefig(buffer)
+    plot_data = buffer.getvalue()
+    # 将matplotlib图片转换为HTML
+    imb = base64.b64encode(plot_data)  # 对plot_data进行编码
+    ims = imb.decode()
+    imd = "data:image/png;base64," + ims
+    return render_template('query_realtime_hotconspt_one.html', img=imd)
+
 #查询实时数据  热点概念
 @app.route('/query_rt_hotconspt', methods=['GET', 'POST'])
 def query_rt_hotconspt():
@@ -103,7 +183,8 @@ def query_rt_hotconspt():
     list_ret = db.query_allhotconsept()
     db.disconnect_db()
     if list_ret is None:
-        list_ret=('概念','0','000')
+        list_ret=('概念', '0', '000')
+
 
     ################## 分页 ######################
     req_page = request.args.get("page", 1)
@@ -114,6 +195,7 @@ def query_rt_hotconspt():
     args_ret = list_ret[pager_obj.start:pager_obj.end]
     str_html = pager_obj.page_html()
     print(str_html)
+    #return render_template('query_realtime_hotconspt.html', rt_value=args_ret, html=str_html, img=img_path)
     return render_template('query_realtime_hotconspt.html', rt_value=args_ret, html=str_html)
 
 #查询实时数据  热点行业
@@ -150,13 +232,13 @@ def query_chipconcent():
 
     #当天日期
     now_time = datetime.datetime.now()
-    #today = now_time.strftime('%Y-%m-%d')
-    today = '2019-08-16'
+    today = now_time.strftime('%Y-%m-%d')
+    #today = '2019-08-16'
 
     list_ret = db.query_chipconcent(today)
     db.disconnect_db()
     if list_ret is None:
-        list_ret=('代码','名称','间隔','time','day')
+        list_ret=('代码','名称','间隔','time','day','num')
 
     ################## 分页 ######################
     req_page = request.args.get("page", 1)

@@ -22,7 +22,7 @@ class CDataServiceMysql:
         self.b_updata_part = True
 
         # 测试获取多少只股票
-        self.stockCnt = 10 #3651
+        self.stockCnt = 3651
         # 从第几支股票开始
         self.stockStart = 0
         self.conf = conf.CConf(str_conf_path)

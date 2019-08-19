@@ -149,7 +149,7 @@ CREATE TABLE t_chip_concent (
 	name CHAR(40) COMMENT '股票名称',
 	ab_gain DECIMAL(10,2) COMMENT '卖一ask/买一bid，间隔涨幅',
 	date CHAR(20)  COMMENT '交易日期',
-	time CHAR(20)  COMMENT '交易时间'
+	time CHAR(20)  COMMENT '交易时间',
 	UNIQUE KEY `UK_code`(`code`,`date`,`time`)
 )ENGINE=innodb DEFAULT CHARSET=utf8;
 
@@ -191,4 +191,7 @@ select open,close,high,low,vol,trade_day from t_kdata_down where code = '000001.
 
 #查询小于60个交易日的个股
 select code,count(code) from t_kdata group by code HAVING COUNT(code)<60;
+
+#去日期最近的30个日期，并且升序
+ select * from (select * from t_trade_day order by trade_day DESC limit 30) as tmp order by trade_day ASC;
               

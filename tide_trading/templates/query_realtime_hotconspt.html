@@ -18,11 +18,13 @@
 </tr>
 {% for i in rt_value %}
 <tr>
-<td>{{ i[0] }}</td>
+<td><a href="/query_rt_hotconspt_one/{{ i[0] }}">{{ i[0] }}</a></td>
 <td>{{ i[1] }}</td>
 <td>{{ i[2] }}</td>
 </tr>
 {% endfor %}
+
+    
 </table>
 
 		<nav aria-label="Page navigation">
