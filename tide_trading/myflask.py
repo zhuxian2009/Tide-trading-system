@@ -10,12 +10,13 @@ import datetime
 import src.common.schedulermgr as schedulermgr
 import os
 import matplotlib.pyplot as plt
+#导入中文字体，避免显示乱码
+import pylab as mpl
 import numpy as np
 import base64
 from io import BytesIO
 import pandas as pd
 import src.datamgr.baseinfo as baseinfo
-import matplotlib.dates as mdates
 #任务调度，阻塞
 #from flask_apscheduler import APScheduler as myScheduler
 #from apscheduler.schedulers.background import BackgroundScheduler as myScheduler
@@ -115,7 +116,7 @@ def query_rt_hotconspt_one(conspt):
     pBaseInfo = baseinfo.CBaseinfo()
     pBaseInfo.read_excel()
 
-    conspt_df = pd.DataFrame(columns=['date', 'count'])
+    #conspt_df = pd.DataFrame(columns=['date', 'count'])
     list_date = list()
     list_count = list()
     for day in trade_day:
@@ -141,25 +142,49 @@ def query_rt_hotconspt_one(conspt):
         list_count.append(count)
         print(day[0])
 
+    '''
+    list_date = ['20190813', '20190814', '20190815', '20190816', '20190819']
+    list_count = [8, 8, 6, 11, 19]
+
     d = {'date': list_date,
          'count': list_count}
     conspt_df = pd.DataFrame(d)
-    print(conspt_df)
+    print(conspt_df)'''
 
     db.disconnect_db()
-    #############################################绘图测试
-    '''X = np.linspace(-np.pi, np.pi, 256, endpoint=True)  # -π to+π的256个值
-    C, S = np.cos(X), np.sin(X)
-    # plt.rcParams['figure.dpi'] = 100  # 分辨率
-    # plt.rcParams['savefig.dpi'] = 100  # 图片像素
-    plt.rcParams['figure.figsize'] = (8.0, 4.0)  # 设置figure_size尺寸
-    plt.plot(X, C)
-    plt.plot(X, S)'''
-    plt.figure(figsize=(10, 4))
-    #plt.xticks(pd.date_range(list_date[0], list_date[-1]), rotation=45)
+    #############################################绘图
+    #中文乱码问题
+    mpl.rcParams['font.sans-serif'] = ['SimHei']
+
+    # 生成figure对象,相当于准备一个画板
+    fig = plt.figure(figsize=(8, 3))
+
+    # 生成axis对象，相当于在画板上准备一张白纸，111，11表示只有一个表格，第3个1，表示在第1个表格上画图
+    ax = fig.add_subplot(111)
+    plt.title(conspt)
+    plt.xlabel('交易日')
+    plt.ylabel('涨停数量')
+
+    #将字符串的日期，转换成日期对象
+    xs = [datetime.datetime.strptime(d, '%Y%m%d').date() for d in list_date]
+
+    #日期对象作为参数设置到横坐标,并且使用list_date中的字符串日志作为对象的标签（别名）
+    #x坐标的刻度值
+    ar_xticks = np.arange(1, len(list_date)+1, step=1)
+    plt.xticks(ar_xticks, list_date, rotation=45, fontsize=10)
+    plt.yticks(np.arange(0, 30, step=2), fontsize=10)
+    ax.plot(ar_xticks, list_count, color='r')
+
+    #下方图片显示不完整的问题
+    plt.tight_layout()
+
+    #在点阵上方标明数值
+    for x, y in zip(ar_xticks, list_count):
+        plt.text(x, y + 0.3, str(y), ha='center', va='bottom', fontsize=10)
+
     #fmt = mdates.DateFormatter('%Y%m%D')
-    xs = [datetime.datetime.strptime(d, '%Y%m%d').date() for d in conspt_df['date']]
-    plt.plot(xs, conspt_df['count'], 'o-')
+    #xs = [datetime.datetime.strptime(d, '%Y%m%d').date() for d in conspt_df['date']]
+    #plt.plot(xs, conspt_df['count'], 'o-')
 
     #plt.savefig('ttt.png')
     # figure 保存为二进制文件

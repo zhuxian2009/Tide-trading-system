@@ -188,6 +188,12 @@ class CDBMgr:
 
         return self.kdata_down.truncate_kdata_down()
 
+    def set_global_config(self):
+        if self.connect is None:
+            return -1
+
+        return self.kdata_down.set_global_config()
+
     ######################################################################## t_trade_day
     # 判断某个交易日期是否存在
     def exist_trade_day(self, trade_day):

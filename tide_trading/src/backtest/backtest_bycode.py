@@ -100,6 +100,7 @@ class CBackTestBycode:
                 temp -= 1
                 continue
 
+            #区间范围取值
             for r in range(10, 30):
                 my_selector = wbottom.CWBotton()
                 my_selector.Init(r, start_day, day)
@@ -111,7 +112,7 @@ class CBackTestBycode:
 def main():
     starttime = datetime.datetime.now()
     backtest = CBackTestBycode()
-    start_day = '20190508'
+    start_day = '20190515'
     end_day = '20190830'
     #使用多进程
     if backtest.use_mul_process:

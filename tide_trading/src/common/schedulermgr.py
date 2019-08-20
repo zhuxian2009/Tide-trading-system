@@ -15,6 +15,8 @@ import src.common.tools as tools
 import src.realtime.rt_quotes as rt_quotes
 #筹码集中
 import src.realtime.rt_chipconcent as rt_chipconcent
+#设置，调用一次
+import src.common.setting as setting
 
 import datetime
 import os
@@ -36,6 +38,8 @@ class CSchedulerMgr:
         self.rt_quotes = rt_quotes.CRT_Quotes(str_conf_path)
         self.dataservice = dataservice.CDataServiceMysql(str_conf_path)
         self.rt_chipconcent = rt_chipconcent.CRT_ChipConcent(str_conf_path)
+        self.setting = setting.CSetting(str_conf_path)
+        self.setting.set_config()
 
     # 启动任务调度
     def start(self):

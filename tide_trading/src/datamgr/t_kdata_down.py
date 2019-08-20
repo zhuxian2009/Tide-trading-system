@@ -382,3 +382,30 @@ class CT_KdataDown:
 
         # 关闭光标对象
         cursor.close()
+
+
+    #############################################
+    # 设置全局参数
+    def set_global_config(self):
+        if self.connect is None:
+            return -1
+
+        # 得到一个可以执行SQL语句的光标对象
+        cursor = self.connect.cursor()
+
+        # sql语句
+        sql = "set global max_allowed_packet = 1024*1014*32;"
+        print(sql)
+
+        try:
+            # 执行SQL语句
+            cursor.execute(sql)
+            # 把修改的数据提交到数据库
+            self.connect.commit()
+        except Exception as e:
+            # 捕捉到错误就回滚
+            self.connect.rollback()
+            print(e)
+
+        # 关闭光标对象
+        cursor.close()

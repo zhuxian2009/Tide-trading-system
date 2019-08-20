@@ -63,7 +63,7 @@ class CRT_Quotes:
         return True
 
     #函数：在线获取所有股票列表
-    def GetStockList(self,):
+    def GetStockList(self):
         pro = ts.pro_api()
         # 查询当前所有正常上市交易的股票列表
         #data = pro.stock_basic(exchange='', list_status='L', fields='ts_code,symbol,name,area,industry,list_date')
