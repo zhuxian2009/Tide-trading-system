@@ -9,6 +9,7 @@ import src.datamgr.t_hot_consept as t_hot_consept
 import src.datamgr.t_hot_trade as t_hot_trade
 import src.datamgr.t_realtime_quotes as t_realtime_quotes
 import src.datamgr.t_chipconcent as t_chipconcent
+import src.datamgr.t_realtime_strategy as t_realtime_strategy
 
 class CDBMgr:
     def __init__(self, host, user, password, database):
@@ -25,6 +26,7 @@ class CDBMgr:
         self.hottrade = None
         self.realtime_quotes = None
         self.chipconcent = None
+        self.realtime_strategy = None
         self.connect_db()
 
     #connect database
@@ -39,6 +41,7 @@ class CDBMgr:
         self.hottrade = t_hot_trade.CT_HotTrade(self.connect)
         self.realtime_quotes = t_realtime_quotes.CT_Realtime_Quotes(self.connect)
         self.chipconcent = t_chipconcent.CT_Chip_Concent(self.connect)
+        self.realtime_strategy = t_realtime_strategy.CT_Realtime_Strategy(self.connect)
 
     def disconnect_db(self):
         self.connect.close()
@@ -313,7 +316,7 @@ class CDBMgr:
         return self.bt_wbottom.truncate_backtest_wbottom()
 
     ############################################################################### t_hot_consept
-    # 增加回测结果数据
+    # 增加热点概念结果数据
     def add_hotconsept(self, consept, times, update_time):
         if self.connect is None:
             return -1
@@ -395,3 +398,31 @@ class CDBMgr:
             return -1
 
         return self.chipconcent.truncate_chip_concent()
+
+############################################################################### t_rt_strategy
+    # 增加策略选股结果数据
+    def add_rt_strategy(self,  code, strategy_id, strategy_name, update_day, update_time):
+        if self.connect is None:
+            return -1
+
+        self.realtime_strategy.add_rt_strategy( code, strategy_id, strategy_name, update_day, update_time)
+
+    def query_all_rt_strategy(self):
+        if self.connect is None:
+            return -1
+
+        return self.realtime_strategy.query_all_rt_strategy()
+
+    #查询当天选股结果
+    def query_today_rt_strategy(self, day):
+        if self.connect is None:
+            return -1
+
+        return self.realtime_strategy.query_today_rt_strategy(day)
+
+
+    def truncate__rt_strategy(self):
+        if self.connect is None:
+            return -1
+
+        return self.realtime_strategy.truncate_rt_strategy()

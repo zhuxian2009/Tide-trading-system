@@ -153,6 +153,17 @@ CREATE TABLE t_chip_concent (
 	UNIQUE KEY `UK_code`(`code`,`date`,`time`)
 )ENGINE=innodb DEFAULT CHARSET=utf8;
 
+#实时策略选股
+CREATE TABLE t_rt_strategy (
+	id INT auto_increment  PRIMARY KEY,
+	code CHAR(10) NOT NULL COMMENT '命中的股票代码',
+	strategy_id INT NOT NULL COMMENT '策略id',
+	strategy_name CHAR(40) COMMENT '策略名称',
+	update_date CHAR(20)  COMMENT '检测日期',
+	update_time CHAR(20)  COMMENT '检测时间',
+	UNIQUE KEY `UK_code`(`code`,`strategy_id`)
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
 #清空表数据
 truncate table t_kdata;
 truncate table t_kdata_bak;
@@ -161,6 +172,7 @@ truncate table t_kdata_bak;
 DROP TABLE t_kdata;
 DROP TABLE t_backtest_wbottom;
 DROP TABLE t_kdata_bak;
+DROP TABLE t_rt_strategy;
 
 #备份表
 INSERT INTO t_kdata_bak SELECT * FROM t_kdata;

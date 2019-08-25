@@ -1,7 +1,5 @@
 # coding=utf-8
-import talib
-import math
-import numpy as np
+
 import src.stockselector.myselectorbase as myselectorbase
 import operator
 import src.common.tools as tools
@@ -9,7 +7,7 @@ import datetime
 
 ''' 找出双重底的个股(w底) '''
 class CWBotton(myselectorbase.CMySelectorBase):
-    def Init(self, min_interval, start_day, end_day):
+    def Init(self, min_interval, start_day, end_day, savetodb_callback):
         #将大区间分为N个小区间
         self.min_interval=min_interval
         # 大区间
@@ -22,6 +20,7 @@ class CWBotton(myselectorbase.CMySelectorBase):
         #self.start_day = '20190101'
         #self.end_day = self.GetToday()
         self.log = tools.CLogger('backtest', 'wbottom', 1)
+        self.savetodb_callback = savetodb_callback
 
 
     def ProcessEx(self, all_stock_kdata):
@@ -72,6 +71,7 @@ class CWBotton(myselectorbase.CMySelectorBase):
         # 4. 比较左底与右底的涨幅，是否相差<3%
         # 5. 比较左底与右底的macd值，是否形成底背离
         # 6. 终点日期收盘价，是否突破颈线位;并且最低点在颈线位下方
+        # 6.1 右区间的极大值，必须小于当日的收盘价
         #实践出真理
         #突破颈线位时，连续三天温和放量，回踩重要支撑位：ma5，ma10，颈线位等，缩量
         # 以下条件可选
@@ -180,13 +180,21 @@ class CWBotton(myselectorbase.CMySelectorBase):
                             # limitup_times += 1
                             b_has_limitup = True
                     '''
+                    #条件6.1，今天收盘价，大于右区间的极大值
+                    #右区间，底2到昨日
+                    right_interval = high_price[bottom2_idx:-2]
+                    r_max_index, r_max_number = max(enumerate(right_interval), key=operator.itemgetter(1))
+                    b_right_highest = False
+                    if cur_close > r_max_number:
+                        b_right_highest = True
+
                     #条件6 今天收盘价突破颈线位
                     b_standup_neck = False
                     if cur_close > max_number and cur_low < max_number:
                         b_standup_neck = True
 
                     #打印满足条件的标的
-                    if b_macd_depart and b_bottom2_lessamount and b_neck and b_standup_neck:#b_has_limitup:
+                    if b_macd_depart and b_bottom2_lessamount and b_neck and b_standup_neck and b_right_highest:#b_has_limitup:
                         print('******** ', code, ' *********')
                         print('小间距：', self.min_interval,
                               '起始时间:', trade_day[len_low - self.max_interval], '~', trade_day[len_low - 1])
@@ -196,13 +204,15 @@ class CWBotton(myselectorbase.CMySelectorBase):
                         self.log.getLogger().info('******** ' + code + ' *********')
                         self.log.getLogger().info('底1：price=' + str(bottom1) + ' trade day=' + trade_day[bottom1_idx])
                         self.log.getLogger().info('底2：price=' + str(bottom2) + ' trade day=' + trade_day[bottom2_idx])
-                        self.db.add_backtest_wbottom(code, bottom1, bottom2,
+                        #self.db.add_backtest_wbottom(code, bottom1, bottom2,
+                        #                             trade_day[bottom1_idx], trade_day[bottom2_idx], cur_trade_day,
+                        #                             self.min_interval)
+                        #通过回调函数，将结果返回给调用者
+                        self.savetodb_callback(code, bottom1, bottom2,
                                                      trade_day[bottom1_idx], trade_day[bottom2_idx], cur_trade_day,
                                                      self.min_interval)
-
                         #结果写数据库 code 名称 底的价格 双底相差幅度 区间大小 底的日期 突破日期；
                         # 唯一key：双底日期组合
-
 
     def Process(self):
         #self.Init()

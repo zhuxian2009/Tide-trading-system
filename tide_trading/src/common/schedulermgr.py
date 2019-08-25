@@ -17,6 +17,8 @@ import src.realtime.rt_quotes as rt_quotes
 import src.realtime.rt_chipconcent as rt_chipconcent
 #设置，调用一次
 import src.common.setting as setting
+#实时双底
+import src.realtime.rt_wbottom as rt_wbottom
 
 import datetime
 import os
@@ -40,6 +42,7 @@ class CSchedulerMgr:
         self.rt_chipconcent = rt_chipconcent.CRT_ChipConcent(str_conf_path)
         self.setting = setting.CSetting(str_conf_path)
         self.setting.set_config()
+        self.rt_wbottom = rt_wbottom.CRT_WBottom(str_conf_path)
 
     # 启动任务调度
     def start(self):
@@ -86,6 +89,33 @@ class CSchedulerMgr:
         self.rt_hotspot.aps_hotspot(g_share_hotspot)
 
         print(tools.get_cur_time(), ' out CSchedulerMgr ... aps_hotspot')
+        my_lock.unlock()
+
+    ######################## 热门行业 热门概念################ 任务调度,DB保活
+    def aps_wbottom_keep_alive(self):
+        print(tools.get_cur_time(), ' in CSchedulerMgr ... aps_wbottom_keep_alive')
+        # os.getpid()获取当前进程id     os.getppid()获取父进程id
+        print("aps_wbottom_keep_alive  pid=", os.getpid(), "  ppid=", os.getppid())
+
+        self.rt_wbottom.aps_keep_db_alive(g_share_hotspotdb_keepalive)
+
+        print(tools.get_cur_time(), ' out CSchedulerMgr ... aps_wbottom_keep_alive')
+
+    # 任务调度
+    def aps_rt_wbottom(self):
+        print(tools.get_cur_time(), ' in CSchedulerMgr ... aps_rt_wbottom')
+        # os.getpid()获取当前进程id     os.getppid()获取父进程id
+        print("aps_rt_wbottom  pid=", os.getpid(), "  ppid=", os.getppid())
+
+        my_lock = filelock.CFileLock(sys._getframe().f_code.co_name)
+        if my_lock.lock() is False:
+            print(tools.get_cur_time(), ' out CSchedulerMgr ... aps_rt_wbottom, lock failed')
+            return
+
+        self.rt_wbottom.aps_wbottom()
+
+        print(tools.get_cur_time(), ' out CSchedulerMgr ... aps_rt_wbottom')
+        my_lock.unlock()
 
     ######################## 实时更新出价 ################
     def aps_reatime_quotes(self):
@@ -101,6 +131,7 @@ class CSchedulerMgr:
         self.rt_quotes.aps_reatime_quotes()
 
         print(tools.get_cur_time(), ' out CSchedulerMgr ... aps_reatime_quotes')
+        my_lock.unlock()
 
         # 任务调度,DB保活
 
@@ -135,6 +166,7 @@ class CSchedulerMgr:
         self.dataservice.aps_dataservice_update(g_share_db_update)
 
         print(tools.get_cur_time(), ' out aps_dataservice_update')
+        my_lock.unlock()
 
     ######################## 实时统计筹码集中的个股 ################
     def aps_rt_chipconcent(self):
@@ -148,7 +180,7 @@ class CSchedulerMgr:
         self.rt_chipconcent.aps_chip_c()
 
         print(tools.get_cur_time(), ' out aps_rt_chipconcent')
-
+        my_lock.unlock()
 
     def aps_chipconcent_keep_db_alive(self):
         print(tools.get_cur_time(), ' in CSchedulerMgr ... aps_chipconcent_keep_db_alive')
@@ -176,6 +208,7 @@ class CSchedulerMgr:
             # 更新最新k线的任务
             #self.scheduler.add_job(func=self.aps_dataservice_update, trigger='cron', second='*/10', day_of_week='mon-fri', id='id_dataservice_update')
             #self.scheduler.add_job(func=self.aps_keep_updatedb_alive, trigger='cron',hour='0-23', second='*/5', day_of_week='*', id='id_scd_update_keepdbalive')
+            self.scheduler.add_job(func=self.aps_rt_wbottom, trigger='cron', second='*/10', day_of_week='*', id= 'id_rt_wbottom')
         except Exception as e:
             print('add_hotspot_job error! ... ' + e)
 
