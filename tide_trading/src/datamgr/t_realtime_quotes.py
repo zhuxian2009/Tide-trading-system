@@ -82,7 +82,7 @@ class CT_Realtime_Quotes:
         sql = "select name,open,pre_close,price, high, low, bid,ask, amount,volume," \
               "b1_v,b1_p,b2_v,b2_p,b3_v,b3_p,b4_v,b4_p,b5_v,b5_p," \
               "a1_v,a1_p,a2_v,a2_p,a3_v,a3_p,a4_v,a4_p,a5_v,a5_p," \
-              "date,time,code from t_realtime_quotes order by code DESC;"
+              "date,time,code from t_realtime_quotes order by code ASC;"
         print(">>>" + sql)
 
         try:

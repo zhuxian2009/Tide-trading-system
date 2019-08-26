@@ -321,7 +321,7 @@ class CDataServiceMysql:
 
                 # qfq,前复权； hfq,后复权
                 # 返回dataframe结构：ts_code/trade_date/open/high/low/close/pre_close/change/pct_chg/vol/amount
-                df = ts.pro_bar(ts_code=code, api=None, start_date=startDay, end_date=endDay)
+                df = ts.pro_bar(ts_code=code, api=None, start_date=startDay, end_date=endDay, retry_count=5)
 
                 call_times += 1
                 if call_times == 195:
@@ -555,6 +555,8 @@ class CDataServiceMysql:
         cur_time = starttime.strftime('%Y-%m-%d %H:%M:%S')
         print(cur_time, "dataservice_mysql  aps_dataservice_update  pid=", os.getpid(), "  ppid=", os.getppid())
 
+        self.db.connect_db()
+
         if share != None:
             share.value = cur_time
 
@@ -606,6 +608,8 @@ class CDataServiceMysql:
                 self.PartDataProcess(list_code, str_start_day, str_end_day)
                 # 4. 最新的交易日期，更新到mysql
                 self.SaveTradeDay(list_online_trade_days)
+
+        self.db.disconnect_db()
 
         endtime = datetime.datetime.now()
         times = (endtime - starttime).seconds

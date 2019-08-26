@@ -28,6 +28,10 @@ class CRT_WBottom(wbottom.CWBotton):
         self.key_stock_basic = 'key_stock_basic'
         self.key_today = 'key_today'
         self.wbottom = wbottom.CWBotton(self.db)
+        self.cur_open = 0
+        self.cur_close = 0
+        self.cur_high = 0
+        self.cur_low = 0
 
         try:
             self.re = redis.Redis(host='127.0.0.1', port=6379, db=0)
@@ -54,6 +58,7 @@ class CRT_WBottom(wbottom.CWBotton):
     # 任务调度
     #share 共享内存
     def aps_wbottom(self):
+        self.db.connect_db()
         cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         print(cur_time, 'in aps_wbottom')
 
@@ -77,9 +82,12 @@ class CRT_WBottom(wbottom.CWBotton):
             self.re.delete(self.key_end_day)
             self.re.delete(self.key_stock_basic)
 
+        #redis已经存在开始时间、结束时间，直接获取
         if self.re.exists(self.key_start_day) and self.re.exists(self.key_end_day):
             start_day = self.re.get(self.key_start_day)
             end_day = self.re.get(self.key_end_day)
+            start_day = self.to_string(start_day)
+            end_day = self.to_string(end_day)
         else:
             # 获取交易日期列表
             list_trade_day = self.GetOfflineTradeDays()
@@ -99,11 +107,25 @@ class CRT_WBottom(wbottom.CWBotton):
                 #从右侧插入一个值，省去排序
                 self.re.rpush(self.key_stock_basic, code)
 
-        for code in list_code:
+        #从mysql获取当前所有的分时数据
+        rt_quotes = self.db.query_realtime_quotes()#tuple
 
+        for code in list_code:
+            code = self.to_string(code)
             key_code = 'key_code_last60_'+self.to_string(code)
 
             print(key_code)
+
+            #查找指定股票的分时数据
+            stock_name = code[0:6]
+            for quote in rt_quotes:
+                if quote[-1] == stock_name:
+                    self.cur_open = quote[1]
+                    self.cur_close = quote[3]
+                    self.cur_high = quote[4]
+                    self.cur_low = quote[5]
+                    break
+
 
             if b_not_update is False:
                 self.re.delete(key_code)
@@ -145,12 +167,15 @@ class CRT_WBottom(wbottom.CWBotton):
             #需要加入今天的KData
             self.wbottom.Init(20, start_day, end_day, self.savetodb_callback)
             try:
+                self.wbottom.SetTodayKData(self.cur_close, self.cur_low)
                 self.wbottom.ProcessEx(all_stock_kdata)
             except Exception as e:
                 print(e)
 
         if b_not_update is False:
             self.re.set(self.key_today, self.GetToday())
+
+        self.db.disconnect_db()
 
         print(cur_time, 'out aps_wbottom')
         endtime = datetime.datetime.now()

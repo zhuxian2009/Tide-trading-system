@@ -26,7 +26,7 @@ class CRT_LimitConcept:
         log.getLogger().info(strMsg)
 
     def __process(self):
-        #可以优化成从数据库读取股票列表
+        #从数据库读取股票列表
         result = self.db.query_realtime_quotes()
         df = pd.DataFrame(list(result), columns=\
         ["name","open","pre_close","price", "high", "low", "bid","ask", "amount","volume",\

@@ -22,6 +22,15 @@ class CWBotton(myselectorbase.CMySelectorBase):
         self.log = tools.CLogger('backtest', 'wbottom', 1)
         self.savetodb_callback = savetodb_callback
 
+        #实时当天的实时数据
+        self.b_use_rt_kdata = False
+        self.cur_close = 0
+        self.cur_low = 0
+
+    def SetTodayKData(self, close, low):
+        self.b_use_rt_kdata = True
+        self.cur_close = close
+        self.cur_low = low
 
     def ProcessEx(self, all_stock_kdata):
         if all_stock_kdata.empty:
@@ -48,6 +57,12 @@ class CWBotton(myselectorbase.CMySelectorBase):
         cur_low = low_price.iloc[-1]
         cur_trade_day = trade_day.iloc[-1]
 
+        #是否使用分时数据
+        if self.b_use_rt_kdata is True:
+            cur_close = self.cur_close
+            cur_low = self.cur_low
+            print('use rt close=', cur_close, '  low=', cur_low)
+
         # 每个小区间内的最低价
         len_low = len(low_price)
 
@@ -70,7 +85,7 @@ class CWBotton(myselectorbase.CMySelectorBase):
         # 3. 找左底与右底之间区域的极大值
         # 4. 比较左底与右底的涨幅，是否相差<3%
         # 5. 比较左底与右底的macd值，是否形成底背离
-        # 6. 终点日期收盘价，是否突破颈线位;并且最低点在颈线位下方
+        # 6. 终点日期收盘价，是否突破颈线位; 并且最低点在颈线位下方
         # 6.1 右区间的极大值，必须小于当日的收盘价
         #实践出真理
         #突破颈线位时，连续三天温和放量，回踩重要支撑位：ma5，ma10，颈线位等，缩量

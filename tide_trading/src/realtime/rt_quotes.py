@@ -83,4 +83,6 @@ class CRT_Quotes:
 
 
     def aps_reatime_quotes(self):
+        self.db.connect_db()
         self.process()
+        self.db.disconnect_db()

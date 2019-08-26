@@ -48,11 +48,14 @@ class CRT_ChipConcent:
         # os.getpid()获取当前进程id     os.getppid()获取父进程id
         print("aps_chip_c  pid=", os.getpid(), "  ppid=", os.getppid())
 
+        self.db.connect_db()
         #
         list_result = self.get_quotes_gap()
         # print(list_code)
 
         self.db.add_chipconcent_many(list_result)
+
+        self.db.disconnect_db()
         # 统计
         #for list_row in list_result:
         #    print(list_row[0], list_row[1])

@@ -27,7 +27,7 @@ class CDBMgr:
         self.realtime_quotes = None
         self.chipconcent = None
         self.realtime_strategy = None
-        self.connect_db()
+        #self.connect_db()
 
     #connect database
     def connect_db(self):

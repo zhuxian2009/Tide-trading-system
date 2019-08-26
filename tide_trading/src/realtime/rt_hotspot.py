@@ -46,6 +46,7 @@ class CRT_Hotspot:
     # 任务调度
     #share 共享内存
     def aps_hotspot(self, share):
+        self.db.connect_db()
         cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         print(cur_time, 'in aps_hotspot')
         share.value = cur_time
@@ -95,6 +96,7 @@ class CRT_Hotspot:
         self.consept_to_db(list_top_consept)
         list_top_trade = self.top_dict(trade_count, self.top_trade_num)
         self.trade_to_db(list_top_trade)
+        self.db.disconnect_db()
 
     def consept_to_db(self, list_consept):
         #先清空，在写新数据
