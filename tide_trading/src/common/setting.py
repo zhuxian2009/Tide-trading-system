@@ -12,7 +12,8 @@ import src.common.conf as conf
 '''
 
 class CSetting:
-    def __init__(self, str_conf_path):
+    def __init__(self, str_conf_path, log):
+        self.log = log
         #self.name = self.__class__.__name__
         myconf = conf.CConf(str_conf_path)
         myconf.ReadConf()

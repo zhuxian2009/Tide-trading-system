@@ -2,28 +2,23 @@
 import src.common.tools as tools
 import src.common.statistics as st
 import datetime
+import os
+import sys
 
 import pandas as pd
 
 ''' 涨停股概念统计模块（子进程）：获取实时数据，统计当前所有涨停股中，概念出现的多少，进行排序 '''
 class CRT_LimitConcept:
-    def __init__(self, db):
-        cur_time = datetime.datetime.now()
-        log_filename = datetime.datetime.strftime(cur_time, '%Y%m%d_%H%M%S')
-        self.log_name = 'log/limitconcept'+log_filename
+    def __init__(self, db, log):
         self.db = db
+        self.log = log
         self.MyInit()
 
     #初始化
     def MyInit(self):
-        my_log_filename = self.log_name + ".txt"
-
-        #if os.path.exists(my_log_filename):
-        #    os.remove(my_log_filename)
-
-        log = tools.CLogger('limitconcept', my_log_filename, 1)
-        strMsg = 'start'
-        log.getLogger().info(strMsg)
+        log_h = os.path.basename(__file__)+":"+__name__+":"+str(sys._getframe().f_lineno)+":  "
+        strMsg = log_h+'start'
+        self.log.info(strMsg)
 
     def __process(self):
         #从数据库读取股票列表

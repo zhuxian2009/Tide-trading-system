@@ -17,7 +17,7 @@ import base64
 from io import BytesIO
 import pandas as pd
 import src.datamgr.baseinfo as baseinfo
-import redis
+import src.common.tools as tools
 
 #任务调度，阻塞
 #from flask_apscheduler import APScheduler as myScheduler
@@ -28,8 +28,15 @@ app = Flask(__name__)
 cur_path = os.getcwd()
 print(cur_path)
 str_conf_path = cur_path + '/conf/conf.ini'
+
+#日志唯一
+g_conf = conf.CConf(str_conf_path)
+filename_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d_%H%M%S')
+log_filename = cur_path+'/'+g_conf.log_dir+'/tide_system_'+filename_time+'.log'
+g_log = tools.CLogger(g_conf.app_name, log_filename, 1).getLogger()
+
 #任务调度
-schedulermgr = schedulermgr.CSchedulerMgr(str_conf_path)
+schedulermgr = schedulermgr.CSchedulerMgr(str_conf_path, g_log)
 schedulermgr.start()
 
 def GetToday():
@@ -88,6 +95,7 @@ def query_bt_w():
     myconf = conf.CConf(str_conf_path)
     myconf.ReadConf()
     db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+    db.connect_db()
 
     list_ret = db.query_rangebacktest_wbottom('20190101', GetToday())
     db.disconnect_db()
@@ -110,6 +118,7 @@ def query_rt_hotconspt_one(conspt):
     myconf = conf.CConf(str_conf_path)
     myconf.ReadConf()
     db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+    db.connect_db()
 
     trade_day = db.query_last_tradeday(10)
     #trade_day = pd.DataFrame(list(result), columns=['trade_day'])
@@ -206,6 +215,7 @@ def query_rt_hotconspt():
     myconf = conf.CConf(str_conf_path)
     myconf.ReadConf()
     db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+    db.connect_db()
 
     list_ret = db.query_allhotconsept()
     db.disconnect_db()
@@ -232,6 +242,7 @@ def query_rt_hottrade():
     myconf = conf.CConf(str_conf_path)
     myconf.ReadConf()
     db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+    db.connect_db()
 
     list_ret = db.query_allhottrade()
     db.disconnect_db()
@@ -256,6 +267,7 @@ def query_chipconcent():
     myconf = conf.CConf(str_conf_path)
     myconf.ReadConf()
     db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+    db.connect_db()
 
     #当天日期
     now_time = datetime.datetime.now()
@@ -286,6 +298,7 @@ def query_rt_wbottom():
     myconf.ReadConf()
 
     db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+    db.connect_db()
 
     today = GetToday()
 

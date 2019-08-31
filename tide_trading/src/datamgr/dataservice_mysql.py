@@ -15,7 +15,8 @@ import logging
 import os
 
 class CDataServiceMysql:
-    def __init__(self, str_conf_path):
+    def __init__(self, str_conf_path, log):
+        self.log = log
         # 只处理数据,否则更新实时数据到数据库
         self.just_process = False
         #更新一部分最新的k线数据;否则全部更新
@@ -48,9 +49,9 @@ class CDataServiceMysql:
     def init(self):
         cur_time = datetime.datetime.now()
         log_filename = datetime.datetime.strftime(cur_time, '/log/dataservice_mysql_%Y%m%d_%H%M%S')
-        log_filename = self.work_path + log_filename
-        logging.basicConfig(filename=log_filename+".log", filemode="w", format="%(asctime)s %(name)s:%(levelname)s:%(message)s",
-                            datefmt="%d-%M-%Y %H:%M:%S", level=logging.DEBUG)
+        #log_filename = self.work_path + log_filename
+        #logging.basicConfig(filename=log_filename+".log", filemode="w", format="%(asctime)s %(name)s:%(levelname)s:%(message)s",
+        #                    datefmt="%d-%M-%Y %H:%M:%S", level=logging.DEBUG)
         ts.set_token('75f181a930dc581d82c0cafd633c09d582d8ac0554c74854f73a9582')
         print(ts.__version__)
         logging.debug('init... ts.set_token OK!')
@@ -287,7 +288,11 @@ class CDataServiceMysql:
     # tushare获取最新部分的日线行情，并保持到mysql
     # 函数：获取多只股票code的日线行情,写入数据库
     # 日期都填YYYYMMDD格式，比如20181010
-    def GetPartKDataAndSave(self, codes, startDay, endDay):
+    def GetPartKDataAndSave(self, codes, startDay, endDay, retry=5):
+        print('GetPartKDataAndSave retry=', retry)
+        if retry < 0:
+            return
+
         # 已经获取的个数，受tushare限制，每分钟只能调用200次
         gotCnt = 0
         # 上一次调用接口时间
@@ -298,6 +303,9 @@ class CDataServiceMysql:
         # 股票列表正在处理第几只
         idx = 0
         pro = ts.pro_api()
+
+        list_error_code = list()
+
         for code in codes['ts_code']:
             gotCnt += 1
 
@@ -321,7 +329,7 @@ class CDataServiceMysql:
 
                 # qfq,前复权； hfq,后复权
                 # 返回dataframe结构：ts_code/trade_date/open/high/low/close/pre_close/change/pct_chg/vol/amount
-                df = ts.pro_bar(ts_code=code, api=None, start_date=startDay, end_date=endDay, retry_count=5)
+                df = ts.pro_bar(ts_code=code, api=None, start_date=startDay, end_date=endDay, retry_count=3)
 
                 call_times += 1
                 if call_times == 195:
@@ -342,10 +350,12 @@ class CDataServiceMysql:
                 if df is None or len(df) == 0:
                     print(code + ' pro_bar error!!!!!!!!!!!!!!!\n')
                     logging.error(code + ' pro_bar error!!!!!!!!!!!!!!!\n')
+                    list_error_code.append(code)
                     continue
             except Exception as e:
                 print('tushare pro_bar error. daily. code=', code)
                 logging.error(code + 'tushare pro_bar error. daily. code=')
+                list_error_code.append(code)
 
             # 查看dataframe类型
             # print(df.dtypes)
@@ -368,6 +378,19 @@ class CDataServiceMysql:
             # 前复权
             # self.db.add_kdata_down(arrayOne[0],arrayOne[1], arrayOne[2], arrayOne[5], arrayOne[3], arrayOne[4], arrayOne[9], arrayOne[8], arrayOne[10])
 
+        # list转dataframe
+        if len(list_error_code) is 0:
+            return
+
+        mydict = {
+            'ts_code': list_error_code,
+            'name': list_error_code,
+            'symbol': list_error_code
+        }
+
+        df_tmp = pd.DataFrame(mydict)
+
+        self.GetPartKDataAndSave(df_tmp, startDay, endDay, retry - 1)
 
     #保存所有的交易日期
     def SaveTradeDay(self, strade_days):
@@ -602,7 +625,7 @@ class CDataServiceMysql:
                 str_end_day = list_online_trade_days[-1]
                 print('updata_part, real start day=', str_start_day, '  end day=', str_end_day)
                 # 获取部分最新k线数据，直接写入kdata表
-                self.GetPartKDataAndSave(list_code, str_start_day, str_end_day)
+                self.GetPartKDataAndSave(list_code, str_start_day, str_end_day, 5)
 
                 # 3.这组新K线添加到mysql以后，处理新数据+前60天K线，计算出macd，ma5...ma60等
                 self.PartDataProcess(list_code, str_start_day, str_end_day)

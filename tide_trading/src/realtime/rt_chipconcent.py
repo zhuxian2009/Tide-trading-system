@@ -13,7 +13,8 @@ import src.common.statistics as st
 '''
 
 class CRT_ChipConcent:
-    def __init__(self, str_conf_path):
+    def __init__(self, str_conf_path, log):
+        self.log = log
         #获取排行榜中多少条热点概念
         self.top_ChipC_num = 20
         myconf = conf.CConf(str_conf_path)

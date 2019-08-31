@@ -5,7 +5,7 @@ class CConf_APSDeployment:
         self.trigger = 'cron'
         self.day_of_week = '*'
         self.hour = '0-23'
-        self.minutes = '*'
+        self.minute = '*'
         self.second='*/10'
 
 
@@ -60,6 +60,9 @@ class CConf:
         self.deploy_dataservice_update = CConf_APSDeployment()
         self.deploy_rt_wbottom = CConf_APSDeployment()
 
+        #全局参数
+        self.app_name = 'abc'
+        self.log_dir = 'log'
 
         self.ReadConf()
 
@@ -100,6 +103,10 @@ class CConf:
         self.deploy_dataservice_update = self.GetAPSDeployment(self.sw_key_dataservice_update)
         self.deploy_rt_wbottom = self.GetAPSDeployment(self.sw_key_rt_wbottom)
 
+        # 全局参数
+        self.app_name = self.conf.get('global', 'app_name')
+        self.log_dir = self.conf.get('global', 'log_dir')
+
     #获取任务的计划部署
     def GetAPSDeployment(self, aps_name):
         deployment = CConf_APSDeployment()
@@ -107,7 +114,7 @@ class CConf:
         deployment.day_of_week = self.conf.get(aps_name, 'day_of_week')
         deployment.hour = self.conf.get(aps_name, 'hour')
         deployment.second = self.conf.get(aps_name, 'second')
-        deployment.minutes = self.conf.get(aps_name, 'minutes')
+        deployment.minute = self.conf.get(aps_name, 'minute')
         return deployment
 
     def SaveAPSDeployment(self, str_session, deployment):
@@ -115,7 +122,7 @@ class CConf:
         self.conf.set(str_session, 'day_of_week', deployment.day_of_week)
         self.conf.set(str_session, 'hour', deployment.hour)
         self.conf.set(str_session, 'second', deployment.second)
-        self.conf.set(str_session, 'minutes', deployment.minutes)
+        self.conf.set(str_session, 'minute', deployment.minute)
 
     def SaveConf(self):
         self.conf.set(self.session_backtest_w, self.s_bt_key_startday, self.s_bt_startday)
@@ -140,6 +147,10 @@ class CConf:
         self.SaveAPSDeployment(self.sw_key_rt_chipconcent, self.deploy_rt_chipconcent)
         self.SaveAPSDeployment(self.sw_key_dataservice_update, self.deploy_dataservice_update)
         self.SaveAPSDeployment(self.sw_key_rt_wbottom, self.deploy_rt_wbottom)
+
+        # 全局参数
+        self.conf.set('global', 'app_name', self.app_name)
+        self.conf.set('global', 'log_dir', self.log_dir)
 
         # 写入文件
         with open(self.conf_filename, 'w') as fw:

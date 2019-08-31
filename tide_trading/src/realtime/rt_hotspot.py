@@ -12,7 +12,7 @@ import src.common.conf as conf
 '''
 
 class CRT_Hotspot:
-    def __init__(self, str_conf_path):
+    def __init__(self, str_conf_path, log):
         #self.name = self.__class__.__name__
         #获取排行榜中多少条热点概念
         self.top_consept_num = 20
@@ -21,6 +21,7 @@ class CRT_Hotspot:
         myconf.ReadConf()
         self.db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
         print('CRT_Hotspot ... ', self.db)
+        self.log = log
 
 
     # 取出次数最多的20个概念，行业
@@ -59,7 +60,7 @@ class CRT_Hotspot:
         pBaseInfo.read_excel()
 
         # 获取当前所有涨停的个股
-        pLimit = limitconcept.CRT_LimitConcept(self.db)
+        pLimit = limitconcept.CRT_LimitConcept(self.db, self.log)
 
         #while True:
         # 统计概念出现的次数

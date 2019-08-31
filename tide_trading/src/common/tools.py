@@ -44,6 +44,10 @@ class CLogger(object):
         if not logger.handlers:
             file_handler = logging.FileHandler(self.logFileName, encoding='utf-8')
             file_handler.setFormatter(formatter)
+            logging.basicConfig(filename=self.logFileName, filemode="w",
+                                format="%(asctime)s %(name)s:%(levelname)s:%(message)s",
+                                datefmt="%Y-%m-%d %H:%M:%S",
+                                level=logging.DEBUG)
 
             # 控制台日志
             console_handler = logging.StreamHandler(sys.stdout)

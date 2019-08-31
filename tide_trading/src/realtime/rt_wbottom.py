@@ -9,13 +9,15 @@ import src.common.conf as conf
 import pandas as pd
 import redis
 import src.stockselector.wbottom as wbottom
+import sys
 
 '''
 实时监控模块，负责监控尾盘出现的双底突破
 '''
 
 class CRT_WBottom(wbottom.CWBotton):
-    def __init__(self, str_conf_path):
+    def __init__(self, str_conf_path, log):
+        self.log = log
         #self.name = self.__class__.__name__
         #获取排行榜中多少条热点概念
         myconf = conf.CConf(str_conf_path)
@@ -37,6 +39,8 @@ class CRT_WBottom(wbottom.CWBotton):
             self.re = redis.Redis(host='127.0.0.1', port=6379, db=0)
         except Exception as e:
             print(e)
+            log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+            self.log.error(log_h+e)
 
 
     def aps_keep_db_alive(self, share):
@@ -114,18 +118,31 @@ class CRT_WBottom(wbottom.CWBotton):
             code = self.to_string(code)
             key_code = 'key_code_last60_'+self.to_string(code)
 
-            print(key_code)
+            cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            print(cur_time, '...... ', key_code)
 
             #查找指定股票的分时数据
             stock_name = code[0:6]
+            b_got_new_price = False
             for quote in rt_quotes:
+
                 if quote[-1] == stock_name:
                     self.cur_open = quote[1]
                     self.cur_close = quote[3]
                     self.cur_high = quote[4]
                     self.cur_low = quote[5]
+                    print(' cur_open=', self.cur_open, ' cur_close=', self.cur_close, ' cur_high=', self.cur_high,
+                          ' cur_low=', self.cur_low)
+                    b_got_new_price = True
                     break
 
+            #没有获取到当天数据，不操作
+            if b_got_new_price is False:
+                print('b_got_new_price=', b_got_new_price, '  stock_name=', stock_name)
+                continue
+
+            #test
+            #self.re.delete(key_code)
 
             if b_not_update is False:
                 self.re.delete(key_code)
@@ -151,6 +168,8 @@ class CRT_WBottom(wbottom.CWBotton):
                     self.re.set(key_code, df_bytes)
                 except Exception as e:
                     print(e)
+                    log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+                    self.log.error(log_h + e)
 
             if all_stock_kdata.empty:
                 print(code, 'is empty! --- wbottom.py Process')
@@ -171,6 +190,8 @@ class CRT_WBottom(wbottom.CWBotton):
                 self.wbottom.ProcessEx(all_stock_kdata)
             except Exception as e:
                 print(e)
+                log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+                self.log.error(log_h + e)
 
         if b_not_update is False:
             self.re.set(self.key_today, self.GetToday())
@@ -222,6 +243,8 @@ class CRT_WBottom(wbottom.CWBotton):
             df = pd.DataFrame(list(result), columns=["ts_code", "symbol", "name", "area", "market", "list_status"])
         except Exception as e:
             print(e)
+            log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+            self.log.error(log_h + e)
         # df = pd.DataFrame(list(result))
         # print(df)
         return df

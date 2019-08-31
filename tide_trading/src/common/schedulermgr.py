@@ -36,17 +36,20 @@ g_share_hotspotdb_keepalive = Array('i', 100)
 g_share_updatedb_keepalive = Array('i', 100)
 
 class CSchedulerMgr:
-    def __init__(self, str_conf_path):
-        self.scheduler = myScheduler()
-        self.rt_hotspot = rt_hotspot.CRT_Hotspot(str_conf_path)
-        self.rt_quotes = rt_quotes.CRT_Quotes(str_conf_path)
-        self.dataservice = dataservice.CDataServiceMysql(str_conf_path)
-        self.rt_chipconcent = rt_chipconcent.CRT_ChipConcent(str_conf_path)
-        self.setting = setting.CSetting(str_conf_path)
-        self.rt_wbottom = rt_wbottom.CRT_WBottom(str_conf_path)
+    def __init__(self, str_conf_path, log):
         #配置文件
         self.myconf = conf.CConf(str_conf_path)
         self.myconf.ReadConf()
+
+        self.log = log
+
+        self.scheduler = myScheduler()
+        self.rt_hotspot = rt_hotspot.CRT_Hotspot(str_conf_path, log)
+        self.rt_quotes = rt_quotes.CRT_Quotes(str_conf_path, log)
+        self.dataservice = dataservice.CDataServiceMysql(str_conf_path, log)
+        self.rt_chipconcent = rt_chipconcent.CRT_ChipConcent(str_conf_path, log)
+        self.setting = setting.CSetting(str_conf_path, log)
+        self.rt_wbottom = rt_wbottom.CRT_WBottom(str_conf_path, log)
 
         #设置系统参数
         self.setting.set_config()
@@ -135,6 +138,7 @@ class CSchedulerMgr:
             print(tools.get_cur_time(), ' out CSchedulerMgr ... aps_reatime_quotes, lock failed')
             return
 
+        self.setting.set_config()
         self.rt_quotes.aps_reatime_quotes()
 
         print(tools.get_cur_time(), ' out CSchedulerMgr ... aps_reatime_quotes')
@@ -210,10 +214,11 @@ class CSchedulerMgr:
                                        day_of_week=self.myconf.deploy_hotspot.day_of_week, id='id_scd_hotspot_pm')
 
             if self.myconf.sw_dataservice_update is 1:
-                self.scheduler.add_job(func=self.aps_hotspot, trigger=self.myconf.deploy_dataservice_update.trigger,
+                self.scheduler.add_job(func=self.aps_dataservice_update, trigger=self.myconf.deploy_dataservice_update.trigger,
                                        hour=self.myconf.deploy_dataservice_update.hour,
+                                       minute=self.myconf.deploy_dataservice_update.minute,
                                        second=self.myconf.deploy_dataservice_update.second,
-                                       day_of_week=self.myconf.deploy_dataservice_update.day_of_week, id='id_scd_hotspot_pm')
+                                       day_of_week=self.myconf.deploy_dataservice_update.day_of_week, id='id_dataservice_update')
 
             if self.myconf.sw_reatime_quotes is 1:
                 self.scheduler.add_job(func=self.aps_reatime_quotes, trigger=self.myconf.deploy_reatime_quotes.trigger,
@@ -224,12 +229,13 @@ class CSchedulerMgr:
                 self.scheduler.add_job(func=self.aps_rt_chipconcent, trigger=self.myconf.deploy_rt_chipconcent.trigger,
                                        hour=self.myconf.deploy_rt_chipconcent.hour,
                                        second=self.myconf.deploy_rt_chipconcent.second,
-                                       day_of_week=self.myconf.deploy_rt_chipconcent.day_of_week, id='id_dataservice_update')
+                                       day_of_week=self.myconf.deploy_rt_chipconcent.day_of_week, id='id_scd_chipconcent')
 
 
             if self.myconf.sw_rt_wbottom is 1:
                 self.scheduler.add_job(func=self.aps_rt_wbottom, trigger=self.myconf.deploy_rt_wbottom.trigger,
                                        hour=self.myconf.deploy_rt_wbottom.hour,
+                                       minute=self.myconf.deploy_rt_wbottom.minute,
                                        second=self.myconf.deploy_rt_wbottom.second,
                                        day_of_week=self.myconf.deploy_rt_wbottom.day_of_week, id='id_rt_wbottom')
             #db保活,每小时连一次mysql，否则超过8小时会断开
@@ -245,13 +251,21 @@ class CSchedulerMgr:
             #self.scheduler.add_job(func=self.aps_keep_updatedb_alive, trigger='cron',hour='0-23', second='*/5', day_of_week='*', id='id_scd_update_keepdbalive')
             #self.scheduler.add_job(func=self.aps_rt_wbottom, trigger='cron', second='*/10', day_of_week='*', id= 'id_rt_wbottom')
         except Exception as e:
-            print('add_hotspot_job error! ... ' + e)
+            print('add_job error! ... ' + e)
 
     def remove_hotspot_job(self):
         self.scheduler.remove_job('id_scd_hotspot_am')
         self.scheduler.remove_job('id_scd_hotspot_pm')
-        self.scheduler.remove_job('id_dataservice_update')
         self.scheduler.remove_job('id_scd_hotspot_keepdbalive')
+        
+        self.scheduler.remove_job('id_scd_quotes_am')
+        self.scheduler.remove_job('id_scd_quotes_pm')
+        self.scheduler.remove_job('id_scd_quotes_keepdbalive')
+        
+        self.scheduler.remove_job('id_scd_chipconcent_am')
+        self.scheduler.remove_job('id_scd_chipconcent_pm')
+        
+        self.scheduler.remove_job('id_dataservice_update')        
         self.scheduler.remove_job('id_scd_update_keepdbalive')
 
     def start_scheduler(self):

@@ -7,12 +7,13 @@ import src.datamgr.dbmgr as dbmgr
 
 ''' 实时获取出价信息，写数据库 '''
 class CRT_Quotes:
-    def __init__(self, str_conf_path):
+    def __init__(self, str_conf_path, log):
         #cur_time = datetime.datetime.now()
         #log_filename = datetime.datetime.strftime(cur_time, '%Y%m%d_%H%M%S')
         #self.log_name = 'log/limitconcept'+log_filename
         self.conf = conf.CConf(str_conf_path)
         self.db = dbmgr.CDBMgr(self.conf.db_host, self.conf.db_username, self.conf.db_pwd, 'kdata')
+        self.log = log
         self.__Init()
 
     #初始化
