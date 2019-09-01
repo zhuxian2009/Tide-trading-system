@@ -8,7 +8,6 @@ import datetime
 #import src.realtime.rt_hotspot as rt_hotspot
 #import src.datamgr.baseinfo as baseinfo
 import src.common.schedulermgr as schedulermgr
-import os
 import matplotlib.pyplot as plt
 #导入中文字体，避免显示乱码
 import pylab as mpl
@@ -18,6 +17,7 @@ from io import BytesIO
 import pandas as pd
 import src.datamgr.baseinfo as baseinfo
 import src.common.tools as tools
+import os
 
 #任务调度，阻塞
 #from flask_apscheduler import APScheduler as myScheduler
@@ -76,8 +76,11 @@ def server_status():
     #str_hotspot = schedulermgr.get_scheduler_status()
     str_hotspot = schedulermgr.get_hotspot_status()
     str_db_update_status = schedulermgr.get_db_update_status()
-    str_db_keepalive_status = schedulermgr.get_db_keepalive_status()
-    msg = 'hotspot:'+str_hotspot+'  update:'+str_db_update_status+' dbkeepalive:'+str_db_keepalive_status
+    str_rt_wbottom_status = schedulermgr.get_rt_wbottom_status()
+    str_reatime_quotes_status = schedulermgr.get_reatime_quotes_status()
+    str_rt_chipconcent_status = schedulermgr.get_rt_chipconcent_status()
+    msg = '<p>实时热点任务:  '+str_hotspot+'</p><p> 数据库更新任务:  '+str_db_update_status+'</p><p>尾盘双底任务:  '+str_rt_wbottom_status\
+          +'</p><p>实时出价任务:  '+str_reatime_quotes_status+'</p><p>探测筹码集中任务:'+str_rt_chipconcent_status+'</p>'
     #print('query_rt_hotconspt ************ pip *************  ',str_hotspot)
     return render_template('conf_status.html', hottime=msg)
 
@@ -165,7 +168,11 @@ def query_rt_hotconspt_one(conspt):
     db.disconnect_db()
     #############################################绘图
     #中文乱码问题
-    mpl.rcParams['font.sans-serif'] = ['SimHei']
+    #myfont = FontProperties(fname=r'/smb/share/hdf5test/venv/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/simhei.ttf')
+    #mpl.rcParams['font.sans-serif'] = ['SimHei']
+    mpl.rcParams['font.sans-serif'] = ['simhei']
+    mpl.rcParams['font.family'] = 'sans-serif'
+    mpl.rcParams['axes.unicode_minus'] = False
 
     # 生成figure对象,相当于准备一个画板
     fig = plt.figure(figsize=(8, 3))
@@ -173,8 +180,8 @@ def query_rt_hotconspt_one(conspt):
     # 生成axis对象，相当于在画板上准备一张白纸，111，11表示只有一个表格，第3个1，表示在第1个表格上画图
     ax = fig.add_subplot(111)
     plt.title(conspt)
-    plt.xlabel('交易日')
-    plt.ylabel('涨停数量')
+    plt.xlabel(u'交易日')
+    plt.ylabel(u'涨停数量')
 
     #将字符串的日期，转换成日期对象
     xs = [datetime.datetime.strptime(d, '%Y%m%d').date() for d in list_date]

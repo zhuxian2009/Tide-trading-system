@@ -4,6 +4,9 @@ import tushare as ts
 import sys
 import src.common.conf as conf
 import src.datamgr.dbmgr as dbmgr
+import redis
+import sys
+import os
 
 ''' 实时获取出价信息，写数据库 '''
 class CRT_Quotes:
@@ -12,8 +15,18 @@ class CRT_Quotes:
         #log_filename = datetime.datetime.strftime(cur_time, '%Y%m%d_%H%M%S')
         #self.log_name = 'log/limitconcept'+log_filename
         self.conf = conf.CConf(str_conf_path)
-        self.db = dbmgr.CDBMgr(self.conf.db_host, self.conf.db_username, self.conf.db_pwd, 'kdata')
         self.log = log
+        self.db = None
+        self.re = None
+
+        try:
+            self.db = dbmgr.CDBMgr(self.conf.db_host, self.conf.db_username, self.conf.db_pwd, 'kdata')
+            self.re = redis.Redis(host='127.0.0.1', port=6379, db=0)
+        except Exception as e:
+            print(e)
+            log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+            self.log.error(log_h+e)
+
         self.__Init()
 
     #初始化
@@ -72,18 +85,20 @@ class CRT_Quotes:
         print('股票总个数：', len(data))
         return data
 
-    #任务调度
-    def aps_keep_db_alive(self):
-        cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        print(cur_time, 'aps_keep_db_alive')
-
-        return self.db.query_allhotconsept()
-
-        # 任务调度
-        # share 共享内存
-
-
     def aps_reatime_quotes(self):
-        self.db.connect_db()
+        try:
+            cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            print(cur_time, 'in aps_hotspot')
+
+            self.db.connect_db()
+
+            #redis 保存任务状态
+            self.re.set('key_rt_quotes_aps_reatime_quotes', cur_time)
+        except Exception as e:
+            print(e)
+            log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+            self.log.error(log_h + e)
+
         self.process()
+
         self.db.disconnect_db()

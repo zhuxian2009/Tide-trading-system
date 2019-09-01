@@ -12,6 +12,8 @@ import pandas as pd
 import src.datamgr.dbmgr as dbmgr
 import src.common.conf as conf
 import logging
+import redis
+import sys
 import os
 
 class CDataServiceMysql:
@@ -30,7 +32,15 @@ class CDataServiceMysql:
         self.work_path = os.getcwd()
         # 每次取200只，休眠x秒
         #self.waitTime = 65
-        self.db = dbmgr.CDBMgr(self.conf.db_host, self.conf.db_username, self.conf.db_pwd, 'kdata')
+
+        try:
+            self.db = dbmgr.CDBMgr(self.conf.db_host, self.conf.db_username, self.conf.db_pwd, 'kdata')
+            self.re = redis.Redis(host='127.0.0.1', port=6379, db=0)
+        except Exception as e:
+            print(e)
+            log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+            self.log.error(log_h+e)
+
         self.init()
 #定义全局变量
 #股票列表文件
@@ -564,24 +574,22 @@ class CDataServiceMysql:
             return update_days
         return 0
 
-    #任务调度，db保活
-    def aps_keep_db_alive(self, share):
-        cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        print(cur_time, 'dataservice_mysql  aps_keep_db_alive')
-        share.value = cur_time
-        return self.db.query_tradeday()
-
     # 任务调度,更新K线数据
     #share 共享内存
-    def aps_dataservice_update(self, share):
+    def aps_dataservice_update(self):
         starttime = datetime.datetime.now()
         cur_time = starttime.strftime('%Y-%m-%d %H:%M:%S')
         print(cur_time, "dataservice_mysql  aps_dataservice_update  pid=", os.getpid(), "  ppid=", os.getppid())
 
-        self.db.connect_db()
+        try:
+            self.db.connect_db()
 
-        if share != None:
-            share.value = cur_time
+            #redis 保存任务状态
+            self.re.set('key_dataservice_mysql_aps_dataservice_update', cur_time)
+        except Exception as e:
+            print(e)
+            log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+            self.log.error(log_h + e)
 
         # 更新的起始时间
         str_start_day = '20171201'

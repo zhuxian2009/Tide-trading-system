@@ -1,5 +1,4 @@
 # coding=utf-8
-import os
 #import src.analysis.limitconcept as limitconcept
 import src.realtime.rt_limitconcept as limitconcept
 import src.datamgr.baseinfo as baseinfo
@@ -7,9 +6,10 @@ import datetime
 import src.datamgr.dbmgr as dbmgr
 import src.common.conf as conf
 import pandas as pd
-import redis
 import src.stockselector.wbottom as wbottom
+import redis
 import sys
+import os
 
 '''
 实时监控模块，负责监控尾盘出现的双底突破
@@ -22,36 +22,27 @@ class CRT_WBottom(wbottom.CWBotton):
         #获取排行榜中多少条热点概念
         myconf = conf.CConf(str_conf_path)
         myconf.ReadConf()
-        self.db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
-        print('CRT_Hotspot ... ', self.db)
         #redis key值
         self.key_start_day = 'key_w_start_day'
         self.key_end_day = 'key_w_end_day'
         self.key_stock_basic = 'key_stock_basic'
         self.key_today = 'key_today'
-        self.wbottom = wbottom.CWBotton(self.db)
         self.cur_open = 0
         self.cur_close = 0
         self.cur_high = 0
         self.cur_low = 0
+        self.db = None
+        self.re = None
 
         try:
+            self.db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
             self.re = redis.Redis(host='127.0.0.1', port=6379, db=0)
         except Exception as e:
             print(e)
             log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
             self.log.error(log_h+e)
 
-
-    def aps_keep_db_alive(self, share):
-        cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        print(cur_time, 'aps_keep_db_alive')
-        
-        # os.getpid()获取当前进程id     os.getppid()获取父进程id
-        print("aps_keep_db_alive  pid=", os.getpid(), "  ppid=", os.getppid())
-        
-        share.value = cur_time
-        return self.db.query_allhotconsept()
+        self.wbottom = wbottom.CWBotton(self.db)
 
     def GetToday(self):
         now_time = datetime.datetime.now()
@@ -62,9 +53,19 @@ class CRT_WBottom(wbottom.CWBotton):
     # 任务调度
     #share 共享内存
     def aps_wbottom(self):
-        self.db.connect_db()
         cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         print(cur_time, 'in aps_wbottom')
+
+        try:
+            self.db.connect_db()
+            #redis 保存任务状态
+            self.re.set('key_rt_wbottom_aps_wbottom', cur_time)
+            #print(self.re.get('key_rt_wbottom_aps_wbottom'))
+        except Exception as e:
+            print(e)
+            log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+            self.log.error(log_h + e)
+
 
         start_day = ''
         end_day = ''

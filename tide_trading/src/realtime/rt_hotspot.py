@@ -6,6 +6,8 @@ import src.datamgr.baseinfo as baseinfo
 import datetime
 import src.datamgr.dbmgr as dbmgr
 import src.common.conf as conf
+import redis
+import sys
 
 '''
 实时监控模块，负责监控、统计实盘中涨停股的概念，写数据库
@@ -19,9 +21,17 @@ class CRT_Hotspot:
         self.top_trade_num = 20
         myconf = conf.CConf(str_conf_path)
         myconf.ReadConf()
-        self.db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
-        print('CRT_Hotspot ... ', self.db)
         self.log = log
+        self.db = None
+        self.re = None
+
+        try:
+            self.db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+            self.re = redis.Redis(host='127.0.0.1', port=6379, db=0)
+        except Exception as e:
+            print(e)
+            log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+            self.log.error(log_h+e)
 
 
     # 取出次数最多的20个概念，行业
@@ -34,23 +44,20 @@ class CRT_Hotspot:
         else:
             return sort_dict
 
-    def aps_keep_db_alive(self, share):
-        cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        print(cur_time, 'aps_keep_db_alive')
-        
-        # os.getpid()获取当前进程id     os.getppid()获取父进程id
-        print("aps_keep_db_alive  pid=", os.getpid(), "  ppid=", os.getppid())
-        
-        share.value = cur_time
-        return self.db.query_allhotconsept()
-
     # 任务调度
     #share 共享内存
-    def aps_hotspot(self, share):
-        self.db.connect_db()
+    def aps_hotspot(self):
         cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         print(cur_time, 'in aps_hotspot')
-        share.value = cur_time
+
+        try:
+            self.db.connect_db()
+            #redis 保存任务状态
+            self.re.set('key_rt_hotspot_aps_hotspot', cur_time)
+        except Exception as e:
+            print(e)
+            log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+            self.log.error(log_h + e)
         
         # os.getpid()获取当前进程id     os.getppid()获取父进程id
         print("aps_hotspot  pid=", os.getpid(), "  ppid=", os.getppid())

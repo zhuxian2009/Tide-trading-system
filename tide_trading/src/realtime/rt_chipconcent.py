@@ -5,6 +5,9 @@ import src.datamgr.dbmgr as dbmgr
 import src.common.conf as conf
 import pandas as pd
 import src.common.statistics as st
+import redis
+import sys
+import os
 
 '''
 实时监控模块，chip concentration
@@ -17,28 +20,18 @@ class CRT_ChipConcent:
         self.log = log
         #获取排行榜中多少条热点概念
         self.top_ChipC_num = 20
-        myconf = conf.CConf(str_conf_path)
-        myconf.ReadConf()
-        self.db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+        self.conf = conf.CConf(str_conf_path)
+        self.conf.ReadConf()
+        self.db = None
+        self.re = None
 
-
-    # 取出次数最多的20个概念，行业
-    def top_dict(self, my_dict, N):
-        # 先排序，降序
-        sort_dict = sorted(my_dict.items(), key=lambda d: d[1], reverse=True)
-        # print(sort_dict)
-        if len(sort_dict) > N:
-            return sort_dict[0:N]
-        else:
-            return sort_dict
-
-    def aps_keep_db_alive(self):
-        cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        print(cur_time, 'aps_keep_db_alive')
-        
-        # os.getpid()获取当前进程id     os.getppid()获取父进程id
-        print("aps_keep_db_alive  pid=", os.getpid(), "  ppid=", os.getppid())
-        self.db.query_allhotconsept()
+        try:
+            self.db = dbmgr.CDBMgr(self.conf.db_host, self.conf.db_username, self.conf.db_pwd, 'kdata')
+            self.re = redis.Redis(host='127.0.0.1', port=6379, db=0)
+        except Exception as e:
+            print(e)
+            log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+            self.log.error(log_h+e)
 
     # 任务调度,筹码集中
     #share 共享内存
@@ -49,7 +42,15 @@ class CRT_ChipConcent:
         # os.getpid()获取当前进程id     os.getppid()获取父进程id
         print("aps_chip_c  pid=", os.getpid(), "  ppid=", os.getppid())
 
-        self.db.connect_db()
+        try:
+            self.db.connect_db()
+
+            #redis 保存任务状态
+            self.re.set('key_rt_chipconcent_aps_chip_c', cur_time)
+        except Exception as e:
+            print(e)
+            log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+            self.log.error(log_h + e)
         #
         list_result = self.get_quotes_gap()
         # print(list_code)
@@ -60,13 +61,6 @@ class CRT_ChipConcent:
         # 统计
         #for list_row in list_result:
         #    print(list_row[0], list_row[1])
-
-        '''
-        #概念排序，取最顶部的N个概念，写数据库
-        list_top_consept = self.top_dict(consept_count, self.top_consept_num)
-        self.consept_to_db(list_top_consept)
-        list_top_trade = self.top_dict(trade_count, self.top_trade_num)
-        self.trade_to_db(list_top_trade)'''
 
 
     #获取出价间隔
