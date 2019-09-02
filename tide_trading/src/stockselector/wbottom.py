@@ -19,7 +19,6 @@ class CWBotton(myselectorbase.CMySelectorBase):
         self.end_day = end_day
         #self.start_day = '20190101'
         #self.end_day = self.GetToday()
-        self.log = tools.CLogger('backtest', 'wbottom', 1)
         self.savetodb_callback = savetodb_callback
 
         #实时当天的实时数据
@@ -198,6 +197,9 @@ class CWBotton(myselectorbase.CMySelectorBase):
                     #条件6.1，今天收盘价，大于右区间的极大值
                     #右区间，底2到昨日
                     right_interval = high_price[bottom2_idx:-2]
+                    if len(right_interval) == 0:
+                        return
+
                     r_max_index, r_max_number = max(enumerate(right_interval), key=operator.itemgetter(1))
                     b_right_highest = False
                     if cur_close > r_max_number:
@@ -216,9 +218,9 @@ class CWBotton(myselectorbase.CMySelectorBase):
                         print('价格间距 = ', per, '%')
                         print('底1：index=', bottom1_idx, '  price=', bottom1, ' trade day=', trade_day[bottom1_idx])
                         print('底2：index=', bottom2_idx, '  price=', bottom2, ' trade day=', trade_day[bottom2_idx])
-                        self.log.getLogger().info('******** ' + code + ' *********')
-                        self.log.getLogger().info('底1：price=' + str(bottom1) + ' trade day=' + trade_day[bottom1_idx])
-                        self.log.getLogger().info('底2：price=' + str(bottom2) + ' trade day=' + trade_day[bottom2_idx])
+                        self.log.info('******** ' + code + ' *********')
+                        self.log.info('底1：price=' + str(bottom1) + ' trade day=' + trade_day[bottom1_idx])
+                        self.log.info('底2：price=' + str(bottom2) + ' trade day=' + trade_day[bottom2_idx])
                         #self.db.add_backtest_wbottom(code, bottom1, bottom2,
                         #                             trade_day[bottom1_idx], trade_day[bottom2_idx], cur_trade_day,
                         #                             self.min_interval)

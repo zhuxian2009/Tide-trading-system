@@ -42,7 +42,7 @@ class CRT_WBottom(wbottom.CWBotton):
             log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
             self.log.error(log_h+e)
 
-        self.wbottom = wbottom.CWBotton(self.db)
+        self.wbottom = wbottom.CWBotton(self.db, self.log)
 
     def GetToday(self):
         now_time = datetime.datetime.now()
@@ -79,7 +79,7 @@ class CRT_WBottom(wbottom.CWBotton):
 
         if redis_day is not None:
             str_redis_day = str(redis_day, 'UTF-8')
-            b_not_update = str_redis_day==self.GetToday()
+            b_not_update = str_redis_day == self.GetToday()
 
         #需要更新数据
         if b_not_update is False:
@@ -119,8 +119,12 @@ class CRT_WBottom(wbottom.CWBotton):
             code = self.to_string(code)
             key_code = 'key_code_last60_'+self.to_string(code)
 
+            if code == '000720.SZ':
+                print('stop')
+
             cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             print(cur_time, '...... ', key_code)
+
 
             #查找指定股票的分时数据
             stock_name = code[0:6]
@@ -176,23 +180,30 @@ class CRT_WBottom(wbottom.CWBotton):
                 print(code, 'is empty! --- wbottom.py Process')
                 continue
 
-            #第一个交易日不是需要的起始时间，不处理
+            #第一个交易日不是需要的起始时间(本来是获取前60日，如果不一致，说明上市时间小于60个交易日)，不处理
             first_trade_day = all_stock_kdata['trade_day'][0]
             str_start_day = self.to_string(start_day)
             if (first_trade_day == str_start_day) is False:
-                print(code, 'start trade day is lost! --- wbottom.py Process')
+                print(code, 'start trade day is lost! --- wbottom.py Process, first_trade_day=',
+                      first_trade_day, ' str_start_day=', str_start_day)
                 continue
 
             #运行选股策略
+            #设置双底区间范围
+            #设置数据源的起止时间
+            #设置结果回调函数
             #需要加入今天的KData
-            self.wbottom.Init(20, start_day, end_day, self.savetodb_callback)
-            try:
-                self.wbottom.SetTodayKData(self.cur_close, self.cur_low)
-                self.wbottom.ProcessEx(all_stock_kdata)
-            except Exception as e:
-                print(e)
-                log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
-                self.log.error(log_h + e)
+            #开始处理
+            for cur_range in range(10, 20, 2):
+                self.log.info(code+'  '+str(cur_range))
+                self.wbottom.Init(cur_range, start_day, end_day, self.savetodb_callback)
+                try:
+                    self.wbottom.SetTodayKData(self.cur_close, self.cur_low)
+                    self.wbottom.ProcessEx(all_stock_kdata)
+                except Exception as e:
+                    print(e)
+                    log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
+                    self.log.error(log_h + e)
 
         if b_not_update is False:
             self.re.set(self.key_today, self.GetToday())

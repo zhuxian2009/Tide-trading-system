@@ -13,7 +13,7 @@ import datetime
 '''
 
 class CMySelectorBase(ABC):
-    def __init__(self, db):
+    def __init__(self, db, log):
         self.Status = status.CStatus()
         #股票交易日期
         self.code_trade_day = 0
@@ -22,6 +22,7 @@ class CMySelectorBase(ABC):
         self.stock_base_info = bi.CBaseinfo()
 
         self.db = db  #dbmgr.CDBMgr('localhost', 'root', '123', 'kdata')
+        self.log = log
 
     # 将需要处理的数据，从mysql数据库读出来，转换成DataFrame进行处理
     # 根据sql语句的select内容，进行转换
