@@ -215,6 +215,12 @@ def query_rt_hotconspt_one(conspt):
     imd = "data:image/png;base64," + ims
     return render_template('query_realtime_hotconspt_one.html', img=imd)
 
+#统计热点概率的轨迹
+@app.route('/query_rt_hottrace', methods=['GET', 'POST'])
+def query_rt_hottrace():
+    print('in query_rt_hottrace')
+    return render_template('query_rt_hottrace.html', rt_value=args_ret, html=str_html)
+
 #查询实时数据  热点概念
 @app.route('/query_rt_hotconspt', methods=['GET', 'POST'])
 def query_rt_hotconspt():

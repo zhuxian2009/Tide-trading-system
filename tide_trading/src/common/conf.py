@@ -47,18 +47,23 @@ class CConf:
         self.sw_key_rt_chipconcent = 'aps_rt_chipconcent'
         self.sw_key_dataservice_update = 'aps_dataservice_update'
         self.sw_key_rt_wbottom = 'aps_rt_wbottom'
+        self.sw_key_rt_hottrace = 'aps_rt_hottrace'
+
         #value
         self.sw_hotspot = 0
         self.sw_reatime_quotes = 0
         self.sw_rt_chipconcent = 0
         self.sw_dataservice_update = 0
         self.sw_rt_wbottom = 0
+        self.sw_rt_hottrace = 0
+
         #计划部署
         self.deploy_hotspot = CConf_APSDeployment()
         self.deploy_reatime_quotes = CConf_APSDeployment()
         self.deploy_rt_chipconcent = CConf_APSDeployment()
         self.deploy_dataservice_update = CConf_APSDeployment()
         self.deploy_rt_wbottom = CConf_APSDeployment()
+        self.deploy_rt_hottrace = CConf_APSDeployment()
 
         #全局参数
         self.app_name = 'abc'
@@ -95,6 +100,7 @@ class CConf:
         self.sw_rt_chipconcent = self.conf.getint(self.session_aps_switch, self.sw_key_rt_chipconcent)
         self.sw_dataservice_update = self.conf.getint(self.session_aps_switch, self.sw_key_dataservice_update)
         self.sw_rt_wbottom = self.conf.getint(self.session_aps_switch, self.sw_key_rt_wbottom)
+        self.sw_rt_hottrace = self.conf.getint(self.session_aps_switch, self.sw_key_rt_hottrace)
 
         #任务计划
         self.deploy_hotspot = self.GetAPSDeployment(self.sw_key_hotspot)
@@ -102,6 +108,7 @@ class CConf:
         self.deploy_rt_chipconcent = self.GetAPSDeployment(self.sw_key_rt_chipconcent)
         self.deploy_dataservice_update = self.GetAPSDeployment(self.sw_key_dataservice_update)
         self.deploy_rt_wbottom = self.GetAPSDeployment(self.sw_key_rt_wbottom)
+        self.deploy_rt_hottrace = self.GetAPSDeployment(self.sw_key_rt_hottrace)
 
         # 全局参数
         self.app_name = self.conf.get('global', 'app_name')
@@ -140,6 +147,7 @@ class CConf:
         self.conf.set(self.session_aps_switch, self.sw_key_rt_chipconcent, str(self.sw_rt_chipconcent))
         self.conf.set(self.session_aps_switch, self.sw_key_dataservice_update, str(self.sw_dataservice_update))
         self.conf.set(self.session_aps_switch, self.sw_key_rt_wbottom, str(self.sw_rt_wbottom))
+        self.conf.set(self.session_aps_switch, self.sw_key_rt_hottrace, str(self.sw_rt_hottrace))
 
         # 任务计划
         self.SaveAPSDeployment(self.sw_key_hotspot, self.deploy_hotspot)
@@ -147,6 +155,7 @@ class CConf:
         self.SaveAPSDeployment(self.sw_key_rt_chipconcent, self.deploy_rt_chipconcent)
         self.SaveAPSDeployment(self.sw_key_dataservice_update, self.deploy_dataservice_update)
         self.SaveAPSDeployment(self.sw_key_rt_wbottom, self.deploy_rt_wbottom)
+        self.SaveAPSDeployment(self.sw_key_rt_hottrace, self.deploy_rt_hottrace)
 
         # 全局参数
         self.conf.set('global', 'app_name', self.app_name)

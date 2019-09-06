@@ -119,9 +119,6 @@ class CRT_WBottom(wbottom.CWBotton):
             code = self.to_string(code)
             key_code = 'key_code_last60_'+self.to_string(code)
 
-            if code == '000720.SZ':
-                print('stop')
-
             cur_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             print(cur_time, '...... ', key_code)
 

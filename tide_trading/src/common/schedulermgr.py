@@ -19,6 +19,8 @@ import src.realtime.rt_chipconcent as rt_chipconcent
 import src.common.setting as setting
 #实时双底
 import src.realtime.rt_wbottom as rt_wbottom
+#实时双底
+import src.realtime.rt_hottrace as rt_hottrace
 #配置文件
 import src.common.conf as conf
 
@@ -41,6 +43,7 @@ class CSchedulerMgr:
         self.rt_chipconcent = rt_chipconcent.CRT_ChipConcent(str_conf_path, log)
         self.setting = setting.CSetting(str_conf_path, log)
         self.rt_wbottom = rt_wbottom.CRT_WBottom(str_conf_path, log)
+        self.rt_hottrace = rt_hottrace.CRT_HotTrace(str_conf_path, log)
         self.re = None
 
         try:
@@ -48,7 +51,7 @@ class CSchedulerMgr:
         except Exception as e:
             print(e)
             log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
-            self.log.error(log_h+e)
+            self.log.error(log_h+str(e))
 
         #设置系统参数
         self.setting.set_config()
@@ -145,6 +148,19 @@ class CSchedulerMgr:
         print(tools.get_cur_time(), ' out aps_dataservice_update')
         my_lock.unlock()
 
+    ####################### 统计最近10天的热点 #####################
+    def aps_rt_hottrace(self):
+        print(tools.get_cur_time(), ' in aps_rt_hottrace')
+        my_lock = filelock.CFileLock(sys._getframe().f_code.co_name)
+        if my_lock.lock() is False:
+            print(tools.get_cur_time(), ' out CSchedulerMgr ... aps_rt_hottrace, lock failed')
+            return
+
+        self.rt_hottrace.aps_hottrace()
+
+        print(tools.get_cur_time(), ' out aps_rt_hottrace')
+        my_lock.unlock()
+
     ######################## 实时统计筹码集中的个股 ################
     def aps_rt_chipconcent(self):
         print(tools.get_cur_time(), ' in aps_rt_chipconcent')
@@ -173,6 +189,13 @@ class CSchedulerMgr:
                                        minute=self.myconf.deploy_dataservice_update.minute,
                                        second=self.myconf.deploy_dataservice_update.second,
                                        day_of_week=self.myconf.deploy_dataservice_update.day_of_week, id='id_dataservice_update')
+
+            if self.myconf.sw_rt_hottrace is 1:
+                self.scheduler.add_job(func=self.aps_rt_hottrace, trigger=self.myconf.deploy_rt_hottrace.trigger,
+                                       hour=self.myconf.deploy_rt_hottrace.hour,
+                                       minute=self.myconf.deploy_rt_hottrace.minute,
+                                       second=self.myconf.deploy_rt_hottrace.second,
+                                       day_of_week=self.myconf.deploy_rt_hottrace.day_of_week, id='id_rt_hottrace')
 
             if self.myconf.sw_reatime_quotes is 1:
                 self.scheduler.add_job(func=self.aps_reatime_quotes, trigger=self.myconf.deploy_reatime_quotes.trigger,
