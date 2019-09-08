@@ -18,6 +18,8 @@ import pandas as pd
 import src.datamgr.baseinfo as baseinfo
 import src.common.tools as tools
 import os
+import redis
+import pickle
 
 #任务调度，阻塞
 #from flask_apscheduler import APScheduler as myScheduler
@@ -38,6 +40,13 @@ g_log = tools.CLogger(g_conf.app_name, log_filename, 1).getLogger()
 #任务调度
 schedulermgr = schedulermgr.CSchedulerMgr(str_conf_path, g_log)
 schedulermgr.start()
+
+def GetDB():
+    myconf = conf.CConf(str_conf_path)
+    myconf.ReadConf()
+    db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
+    db.connect_db()
+    return db
 
 def GetToday():
     now_time = datetime.datetime.now()
@@ -219,7 +228,69 @@ def query_rt_hotconspt_one(conspt):
 @app.route('/query_rt_hottrace', methods=['GET', 'POST'])
 def query_rt_hottrace():
     print('in query_rt_hottrace')
-    return render_template('query_rt_hottrace.html', rt_value=args_ret, html=str_html)
+    # 1.从t_trade_day找出最近10个交易日的日期
+    db = GetDB()
+    trade_day = db.query_last_tradeday(10)
+
+    re = redis.Redis(host='127.0.0.1', port=6379, db=0)
+
+    list_day = list()
+
+    #一个list代表一列
+    list_ret = list()
+    for day in trade_day:
+        str_day = day[0]
+
+        list_day.append(str_day[4:])
+
+        redis_key = 'hottrace_' + str_day
+        my_consept = re.get(redis_key)
+        my_dict = pickle.loads(my_consept)
+
+        list_ret.append(my_dict)
+        #list_ret.append(my_dict)
+
+    #旋转,一个list row代表一个交易日的信息；要把它变成列
+    my_row = list()
+    #概念名称
+    row_k = list_ret[0].keys()
+    my_row.append(tuple(row_k))
+    #概念分布
+    for row in list_ret:
+        row_v = row.values()
+        print(row_v)
+        my_row.append(tuple(row_v))
+
+    #概念统计
+    list_statistic = re.lrange('rt_hottrace_key_statistic', 0, -1)
+    list_str_statistic = list()
+    for i in list_statistic:
+        str_i = str(i, 'utf-8')
+        list_str_statistic.append(str_i)
+
+    my_row.append(tuple(list_str_statistic))
+
+    df = pd.DataFrame(my_row)
+    #df = df.applymap(str)
+    print(df)
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>翻转<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+    temp = df.stack()
+    my_df = temp.unstack(level=0)
+    #values : dataframe -> ndarray -> list
+    ret = my_df.values.tolist()
+    #断开连接
+    re.close()
+    db.disconnect_db()
+    ################## 分页 ######################
+    '''req_page = request.args.get("page", 1)
+    print('query_rt_hotconspt ... req_page=', req_page)
+    pager_obj = Pagination(req_page, len(list_ret), request.path, request.args, per_page_count=20)
+    print(request.args)
+    # 根据分页的参数，截取部分数据显示
+    args_ret = list_ret[pager_obj.start:pager_obj.end]
+    str_html = pager_obj.page_html()
+    print(str_html)'''
+    return render_template('query_rt_hottrace.html', rt_date=list_day, rt_value=ret)
 
 #查询实时数据  热点概念
 @app.route('/query_rt_hotconspt', methods=['GET', 'POST'])
@@ -233,7 +304,7 @@ def query_rt_hotconspt():
     list_ret = db.query_allhotconsept()
     db.disconnect_db()
     if list_ret is None:
-        list_ret=('概念', '0', '000')
+        list_ret = ('概念', '0', '000')
 
 
     ################## 分页 ######################

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        
+        <style>
+            table tr:nth-child(odd){
+            background: #ccc;
+            }
+        </style>
+        
+        <link href="/static/css/style2.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+    <h2>查询 > 热点轨迹</h2>
+    <div align="center" style="width:1000px;height:500px;border:0px solid #F00">
+	<html>
+
+<table id="customers">
+<tr>
+<th>排名</th>
+<th>热点/日期</th>
+<th>{{ rt_date[0] }}</th>
+<th>{{ rt_date[1] }}</th>
+<th>{{ rt_date[2] }}</th>
+<th>{{ rt_date[3] }}</th>
+<th>{{ rt_date[4] }}</th>
+<th>{{ rt_date[5] }}</th>
+<th>{{ rt_date[6] }}</th>
+<th>{{ rt_date[7] }}</th>
+<th>{{ rt_date[8] }}</th>
+<th>{{ rt_date[9] }}</th>
+<th>统计</th>
+</tr>
+
+
+    {% for i in rt_value %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ i[0] }}</td>
+        <td>{{ i[1] }}</td>
+        <td>{{ i[2] }}</td>
+        <td>{{ i[3] }}</td>
+        <td>{{ i[4] }}</td>
+        <td>{{ i[5] }}</td>
+        <td>{{ i[6] }}</td>
+        <td>{{ i[7] }}</td>
+        <td>{{ i[8] }}</td>
+        <td>{{ i[9] }}</td>
+        <td>{{ i[10] }}</td>
+        <td>{{ i[11] }}</td>
+    </tr>
+    {% endfor %}
+    
+</table>
+
+    </div>
+	
+    </body>
+</html>
