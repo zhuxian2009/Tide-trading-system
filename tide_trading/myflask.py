@@ -271,9 +271,7 @@ def query_rt_hottrace():
     my_row.append(tuple(list_str_statistic))
 
     df = pd.DataFrame(my_row)
-    #df = df.applymap(str)
-    print(df)
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>·­×ª<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+    print('>>>>>>>>>>>>>>>>>>>>>>>>> ·­×ª  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
     temp = df.stack()
     my_df = temp.unstack(level=0)
     #values : dataframe -> ndarray -> list

@@ -33,9 +33,9 @@ class CRT_HotTrace:
         self.pBaseInfo = baseinfo.CBaseinfo()
 
         try:
-            self.pBaseInfo.read_excel()
             self.db = dbmgr.CDBMgr(myconf.db_host, myconf.db_username, myconf.db_pwd, 'kdata')
             self.re = redis.Redis(host='127.0.0.1', port=6379, db=0)
+            self.pBaseInfo.read_excel()
         except Exception as e:
             print(e)
             log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
