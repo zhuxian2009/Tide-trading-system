@@ -40,7 +40,7 @@ class CRT_WBottom(wbottom.CWBotton):
         except Exception as e:
             print(e)
             log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
-            self.log.error(log_h+e)
+            self.log.error(log_h+str(e))
 
         self.wbottom = wbottom.CWBotton(self.db, self.log)
 

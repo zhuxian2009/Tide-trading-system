@@ -41,8 +41,9 @@ class CStatistics:
             return 0
 
         rang = close - open
-        gain = rang / open
-        return gain * 100
+        gain = (rang / open)*100
+        gain = '%.2f' % gain
+        return gain
 
     #计算涨停价格
     def calc_limit_price(self, pre_close):

@@ -88,6 +88,19 @@ CREATE TABLE t_backtest_wbottom (
 	UNIQUE KEY `UK_code`(`ts_code`,`trade_day1`,`trade_day2`)
 )ENGINE=innodb DEFAULT CHARSET=utf8;
 
+#策略回测结果
+CREATE TABLE t_bt_strategy (
+	id INT auto_increment  PRIMARY KEY,
+	ts_code CHAR(10) NOT NULL COMMENT 'TS代码,如：000001.SZ',
+	buydate CHAR(10) COMMENT '买入日期',
+	buyprice DECIMAL(10,2) COMMENT '买入价',
+	selldate CHAR(10) COMMENT '卖出日期',
+	sellprice DECIMAL(10,2) COMMENT '卖出价',
+	duration TINYINT  COMMENT '持股天数',
+	strategyid CHAR(10) COMMENT '策略id',
+	UNIQUE KEY `UK_code`(`ts_code`,`buydate`,`strategyid`)
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
 #热点概念
 CREATE TABLE t_hot_consept (
 	id INT auto_increment  PRIMARY KEY,

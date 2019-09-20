@@ -146,6 +146,9 @@ class CWBotton(myselectorbase.CMySelectorBase):
 
                     #条件2 macd底背离
                     b_macd_depart = False
+                    if bottom1_macd is None or bottom2_macd is None:
+                        continue
+
                     if bottom1_macd < bottom2_macd:
                         b_macd_depart = True
                     else:
@@ -227,7 +230,7 @@ class CWBotton(myselectorbase.CMySelectorBase):
                         #通过回调函数，将结果返回给调用者
                         self.savetodb_callback(code, bottom1, bottom2,
                                                      trade_day[bottom1_idx], trade_day[bottom2_idx], cur_trade_day,
-                                                     self.min_interval)
+                                                     self.min_interval, cur_close)
                         #结果写数据库 code 名称 底的价格 双底相差幅度 区间大小 底的日期 突破日期；
                         # 唯一key：双底日期组合
 

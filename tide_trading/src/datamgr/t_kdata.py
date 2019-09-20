@@ -226,7 +226,7 @@ class CT_Kdata:
             print(e)
         return 0
 
-    def query_kdata(self,code):
+    def query_kdata(self, code):
         if self.connect is None:
             return None
 

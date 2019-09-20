@@ -10,6 +10,7 @@ import src.datamgr.t_hot_trade as t_hot_trade
 import src.datamgr.t_realtime_quotes as t_realtime_quotes
 import src.datamgr.t_chipconcent as t_chipconcent
 import src.datamgr.t_realtime_strategy as t_realtime_strategy
+import src.datamgr.t_bt_strategy as t_bt_strategy
 
 class CDBMgr:
     def __init__(self, host, user, password, database):
@@ -27,6 +28,7 @@ class CDBMgr:
         self.realtime_quotes = None
         self.chipconcent = None
         self.realtime_strategy = None
+        self.bt_strategy = None
         #self.connect_db()
 
     #connect database
@@ -42,6 +44,7 @@ class CDBMgr:
         self.realtime_quotes = t_realtime_quotes.CT_Realtime_Quotes(self.connect)
         self.chipconcent = t_chipconcent.CT_Chip_Concent(self.connect)
         self.realtime_strategy = t_realtime_strategy.CT_Realtime_Strategy(self.connect)
+        self.bt_strategy = t_bt_strategy.CT_BT_Strategy(self.connect)
 
     def disconnect_db(self):
         self.connect.close()
@@ -426,3 +429,25 @@ class CDBMgr:
             return -1
 
         return self.realtime_strategy.truncate_rt_strategy()
+
+    ############################################################################### t_bt_statistic策略回测统计
+    def add_bt_strategy(self, ts_code, buydate, buyprice, selldate, sellprice, duration, strategyid):
+        if self.connect is None:
+            return -1
+        return self.bt_strategy.add_bt_strategy(ts_code, buydate, buyprice, selldate, sellprice, duration, strategyid)
+
+    def query_bt_strategy(self, id):
+        if self.connect is None:
+            return -1
+        return self.bt_strategy.query_bt_strategy(id)
+
+    def truncate_bt_strategy(self):
+        if self.connect is None:
+            return -1
+        return self.bt_strategy.truncate_bt_strategy()
+
+    def delete_bt_strategy(self, id):
+        if self.connect is None:
+            return -1
+        return self.bt_strategy.delete_bt_strategy(id)
+

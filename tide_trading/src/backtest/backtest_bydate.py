@@ -4,150 +4,152 @@
 #import strategy02
 #import strategy04
 #import strategy05
-import src.strategy.strategy06 as strategy06
-import statistics as st
-import h5py  #导入工具包
+#import src.strategy.strategy06 as strategy06
+import src.common.statistics as st
 import src.common.tools as tools
 import sys
 import os
 from src.common.status import State
 import datetime
 from multiprocessing import Pool #导入进程池
-
+import src.datamgr.dbmgr as dbmgr
+import pandas as pd
+import src.stockselector.wbottom as wbottom
 ''' 回测模块：回测一天中，所有股票在该日期中的表现; 横向回测，不支持多进程 '''
 
-log_name = '../../log/backtest_log'
+class CBackTestBydate:
+    def __init__(self):
+        self.log_name = '../../log/backtest_log'
+        self.use_mul_process = 0
+        # 进程池里进程个数
+        self.process_cnt = 3
+        self.db = dbmgr.CDBMgr('localhost', 'root', '123', 'kdata')
+
+
+        #以时间命名日志文件
+        cur_time = datetime.datetime.now()
+        log_filename = datetime.datetime.strftime(cur_time, '%Y%m%d_%H%M%S')
+        my_log_filename = self.log_name + log_filename + ".txt"
+        self.log = tools.CLogger('backtest', my_log_filename, 1)
+
+
+
+    #进程结束以后，进入回调函数
+    def process_callback(self,x):
+        pass
+
+    # 根据sql语句的select内容，进行转换
+    def QueryAllStockBasic(self):
+        result = self.db.query_allstockbasic()
+
+        try:
+            df = pd.DataFrame(list(result), columns=["ts_code", "symbol", "name", "area", "market", "list_status"])
+        except Exception as e:
+            print(e)
+        # df = pd.DataFrame(list(result))
+        # print(df)
+        return df
+
+    # 根据sql语句的select内容，进行转换
+    def QueryAllTradeDays(self):
+        result = self.db.query_tradeday()
+
+        df = pd.DataFrame(list(result), columns=['trade_day'])
+        # print(df)
+        return df
+
+    # 获取所有离线的交易日期，mysql
+    def GetOfflineTradeDays(self):
+        trade_days = []
+        # 离线数据
+        data = self.QueryAllTradeDays()
+        for i in data['trade_day']:
+            trade_days.append(i)
+
+        return trade_days
+
+    def process(self, start_day, end_day):
+        print("start=", start_day, " end=", end_day)
+        self.log.getLogger().info("start=" + start_day + " end=" + end_day)
+
+        #if os.path.exists(my_log_filename):
+        #    os.remove(my_log_filename)
+
+        #首次投入基础数据的数量
+        base_count = 60
+
+        #获取交易日期列表
+        list_trade_day = self.GetOfflineTradeDays()
+
+        #获取股票列表
+        #list_stock_basic = self.QueryAllStockBasic()
+        #for code in list_stock_basic['ts_code']:
+        temp = base_count
+
+        #从设定的开始日期，每次往后取base_count天数据，计算；
+        # 计算一次以后，起始日期往后移动一天
+        #例如：20190508~20190830，第一次回测数据是：20190508~20190802
+        for day in list_trade_day:
+            #不在指定区间的日期，不处理
+            if day <= start_day or day >= end_day:
+                print('start_day=', start_day, '  lost day=', day)
+                continue
+
+            #保证每次进行计算的kdata数量，等于base_count天
+            if temp > 0:
+                temp -= 1
+                continue
+
+            #区间范围取值
+            for r in range(10, 30):
+                my_selector = wbottom.CWBotton()
+                my_selector.Init(r, start_day, day)
+                print("process.... range=", r, ' startday=', start_day, ' endday=', day)
+                self.log.getLogger().info("process.... range=" + str(r) + ' startday=' + start_day + ' endday=' + day)
+                my_selector.Process()
+                my_selector.UnInit()
 
 def main():
-    start_idx = 0
-    end_idx = 3000
-    #不使用多进程
-    process(start_idx, end_idx)
-
-
-def process(start_idx, end_idx):
-    print("start=", start_idx, " end=", end_idx)
-
-    my_log_filename = log_name + str(start_idx) + ".txt"
-
-    if os.path.exists(my_log_filename):
-        os.remove(my_log_filename)
-
-    # input 股票详情
-    str_filename = '../../data/stockdaily.h5'
-
-    file_daily = h5py.File(str_filename, 'r')
-    log = tools.CLogger('backtest', my_log_filename, 1)
-
-    strMsg = 'open success, for start_idx='+str(start_idx)+'  end_idx='+str(end_idx)
-    log.getLogger().info(strMsg)
-
-    # 策略
-    #strategy = strategy01.CStrategy01(file_daily)
-    # 策略
-    strategy = strategy06.CStrategy06(file_daily)
-
-    #遍历所有交易日期
-    strategy.Init()
-    strategy.LoadData('trade_day')
-    dates = strategy.allTradeDay
-
-    # 回测最近N天数据
-    N = 30
-    idx_cnt = 0
-    day_cnt = len(dates)
-
-    strategy.stock_base_info.open_excel('每日涨停概念统计.xls')
-    strategy.stock_base_info.write_excel(0, 0, '日期')
-    strategy.stock_base_info.write_excel(0, 1, '概念')
-    strategy.stock_base_info.write_excel(0, 2, '次数')
-    #try:
-    #    strategy.stock_base_info.write_excel(0, 0, 'aaa')
-    #except Exception as e:
-    #   print('')
-
-    row = 1
-    col = 0
-    for date in dates:
-        if idx_cnt < day_cnt - N:
-            idx_cnt += 1
-            continue
-
-        consept_count = process_oneday(strategy, file_daily, date)
-
-        idx_cnt += 1
-
-        #遍历所有的概念
-        for cc in consept_count.keys():
-            print('date = ', date, ' conseption  = ', cc, ' count=', consept_count[cc])
-            strategy.stock_base_info.write_excel(row, col, date)
-            col += 1
-            strategy.stock_base_info.write_excel(row, col, cc)
-            col += 1
-            strategy.stock_base_info.write_excel(row, col, consept_count[cc])
-            row += 1
-            col = 0
-            # else:
-            #   print('have no my data')
-
-    strategy.stock_base_info.close_excel()
-
-def process_oneday(strategy, file_daily, date):
-    cur_code_idx = 0
-    ##记录每只股票在当天的涨幅
-    #字典《//code.SZ,0.9》
-    gains = dict()
-    #print('加载股票数据')
-    for key in file_daily.keys():
-        if key is 'trade_day':
-            continue
-
-        cur_code_idx += 1
-
-        code = file_daily[key].name
-
-        #hdf5数据有点问题
-        #if cur_code_idx > 2900 or cur_code_idx < 2800:
-        #    continue
-
-        #加载该股票所有的数据
-        strategy.LoadData(code)
-
-        cur_idx = 0
-        #print('筛选 ',code,' 数据之：',date)
-        for one_day in strategy.code_trade_day:
-            if date == one_day:
-                gain = strategy.pct_chg[cur_idx]
-                #记录每只股票在当天的涨幅
-                #gains.update({code, gain})
-                gains[code] = gain
-            cur_idx += 1
-
-    #统计根据概念出现的次数
-    consept_count = dict()
-
-    for code in gains:
-        #打印涨幅>9%的个股
-        if(gains[code] > 9):
-            stock_code = code[1:]
-            my_stock = strategy.stock_base_info.get_stock_info(stock_code)
-            conseptions = my_stock.get_conseption()
-            print('date=', date, '  code=', stock_code, '  gain=', gains[code])
-            #遍历股票的所属概念
-            for consept in my_stock.get_conseption():
-                print(consept)
-                if consept in consept_count:
-                    count = consept_count[consept]
-                    consept_count[consept] = count + 1
-                else:
-                    consept_count[consept] = 1
-
-    return consept_count
-
-
-if __name__ == '__main__':
     starttime = datetime.datetime.now()
-    main()
+    backtest = CBackTestBydate()
+    start_day = '20190515'
+    end_day = '20190830'
+    #使用多进程
+    if backtest.use_mul_process:
+        process_pool = Pool(backtest.process_cnt)
+        '''
+        #python中的除法运算
+        average = (end_idx - start_idx) // dataservice.process_cnt
+        #给每个线程，分配N个股票任务
+        start_pos = -1
+        end_pos = -1
+
+        for i in range(1, dataservice.process_cnt+1):
+            start_pos = end_pos + 1
+            end_pos = start_idx + average*i
+
+            if i is dataservice.process_cnt:
+                end_pos = end_idx
+
+            #process(start_pos, end_pos)
+            process_pool.apply_async(dataservice.process, (start_pos, end_pos, ), callback=dataservice.process_callback)
+
+        process_pool.close()
+        process_pool.join()'''
+    else:
+        #不使用多进程
+        backtest.process(start_day, end_day)
+
     endtime = datetime.datetime.now()
     print('回测用时(秒)：', (endtime - starttime).seconds)
+    backtest.log.getLogger().info('回测用时(秒)：'+ str((endtime - starttime).seconds))
+
+def shutdown(sec):
+    # N秒后关机
+    cmd = 'shutdown -s -t ' + str(sec)
+    os.system(cmd)
+
+if __name__ == '__main__':
+    main()
+    #shutdown(10)
 
