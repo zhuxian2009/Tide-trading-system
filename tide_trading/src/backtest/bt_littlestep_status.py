@@ -1,70 +1,83 @@
 # coding=utf-8
 
-import src.datamgr.dbadapter as dbadapter
-import src.stockselector.wbottom as wbottom
-import abc
-from enum import Enum
+from src.backtest.bt_base_status import CBT_Base_Status, status_type
+import operator
 
-''' 回测模块，状态模式 '''
-
-class status_type(Enum):
-    STATUS_SELECT = 0
-    STATUS_HOLD = 1
-    STATUS_SOLD = 2
-
-#抽象类，抽象方法
-class CBackTestBycodeStatus(metaclass=abc.ABCMeta):
-
-    def init(self, strategy, str_conf_path, log):
-        self.dbadapter = dbadapter.CDBAdapter(str_conf_path, log)
-        self.strategy = strategy
-        self.wbottom = wbottom.CWBotton(self.dbadapter.db, log)
-        self.reslut = None
-
-    def set_status(self, status):
-        self.status = status
-
-    def get_status(self):
-        return self.status
-
-    def set_result(self, reslut):
-        self.reslut = reslut
-
-    def get_result(self):
-        return self.reslut
-
-    @abc.abstractmethod
-    def input_newkdata(self, kdata):
-        pass
-
-    @abc.abstractmethod
-    def buy(self, res):
-        pass
-
-    @abc.abstractmethod
-    def hold(self):
-        pass
-
-    @abc.abstractmethod
-    def sell(self, res):
-        pass
-
-    @abc.abstractmethod
-    def statistics(self, res):
-        pass
+''' 回测策略，具有选股状态，持股状态，卖出状态；每个策略算法的不同之处，主要体现在这三个状态的实现上
+小步向前，尾盘突破前高，短线 '''
 
 #选股状态
-class CBT_SelectStatus(CBackTestBycodeStatus):
+class CBT_LittleStepSelectStatus(CBT_Base_Status):
     def __init__(self, strategy, str_conf_path, log):
         #状态,区别于其他的状态
         self.status = status_type.STATUS_SELECT
         self.init(strategy, str_conf_path, log)
 
     def input_newkdata(self, kdata):
-        today = self.strategy.dbadapter.GetToday()
-        # 2. 一个一个交易日加入到策略
-        self.wbottom.Init(10, self.strategy.start_day, today, self.strategy.selected_callback)
-        self.wbottom.ProcessEx(kdata)
+        # kdata表示回测日及之前的kdata
+        # 需要的原始数据
+        # 交易日期
+        trade_day = kdata['trade_day']
+        # 收盘价 最高价 最低价
+        low_price = kdata['low']
+        high_price = kdata['high']
+        close_price = kdata['close']
+        open_price = kdata['open']
+        # 成交额
+        amount = kdata['amount']
+        vol = kdata['vol']
+        ma5_vol = kdata['ma5vol']
+        pct_chg = kdata['pct_chg']
+        # macd指标
+        macd = kdata['macd']
+        dif = kdata['dif']
+        dea = kdata['dea']
+        # 当前被处理的股票代码
+        code = kdata['code'].iloc[0]
+        cur_close = close_price.iloc[-1]
+        cur_open = open_price.iloc[-1]
+        cur_low = low_price.iloc[-1]
+        cur_trade_day = trade_day.iloc[-1]
+        cur_pct_chg = pct_chg.iloc[-1]
+
+        if code == '002013.SZ' and cur_trade_day == '20180827':
+            print('pause')
+
+        b_go = True
+        count = 0
+        #连续4个交易日小阳线
+        for i in range(-2, -6, -1):
+            #前N天的收盘价
+            history_close = close_price.iloc[i]
+            history_open = open_price.iloc[i]
+            #前N+1天的收盘价
+            #history_pre_close = close_price.iloc[i-1]
+
+            #小于5个点的小阳线
+            gain = pct_chg.iloc[i]
+            if gain < 0.5 or gain > 6 or history_open > history_close:
+                b_go = False
+                return
+
+            #至少1个交易日的量能大于ma5，温和放量更好
+            history_vol = vol.iloc[i]
+            history_ma_vol = ma5_vol.iloc[i]
+
+            if history_vol > history_ma_vol:
+                count = count + 1
+
+        #回测日的收盘价，突破前期高点，且放量,且阳线
+        gain = cur_pct_chg
+
+        #计算前N天的极大值
+        N=-13
+        part_high = high_price[N:-1]
+        part_trade_day = trade_day[N:-1]
+        max_index, max_number = max(enumerate(part_high), key=operator.itemgetter(1))
+        the_trade_day = part_trade_day.iloc[max_index]
+
+        if b_go is True and count >= 2 and gain>0.5 and gain<9 and cur_close>=max_number:
+            print('little step trade day =', cur_trade_day, '   code=', code, '  max_number=',max_number, '  the_trade_day=',the_trade_day)
 
     def buy(self, res):
         print('buy .... ')
@@ -81,7 +94,7 @@ class CBT_SelectStatus(CBackTestBycodeStatus):
         pass
 
 #股票持有状态
-class CBT_HoldStatus(CBackTestBycodeStatus):
+class CBT_LittleStepHoldStatus(CBT_Base_Status):
     def __init__(self, strategy, str_conf_path, log):
         #状态
         self.status = status_type.STATUS_HOLD
@@ -142,7 +155,7 @@ class CBT_HoldStatus(CBackTestBycodeStatus):
     def statistics(self):
         pass
 #卖出状态
-class CBT_SoldStatus(CBackTestBycodeStatus):
+class CBT_LittleStepSoldStatus(CBT_Base_Status):
     def __init__(self, strategy, str_conf_path, log):
         #状态
         self.status = status_type.STATUS_SOLD

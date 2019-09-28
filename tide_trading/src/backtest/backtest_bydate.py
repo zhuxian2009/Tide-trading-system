@@ -1,20 +1,12 @@
 # coding=utf-8
-#import strategy01
-#import strategybase as sttbase
-#import strategy02
-#import strategy04
-#import strategy05
-#import src.strategy.strategy06 as strategy06
-import src.common.statistics as st
 import src.common.tools as tools
-import sys
 import os
-from src.common.status import State
 import datetime
 from multiprocessing import Pool #导入进程池
 import src.datamgr.dbmgr as dbmgr
 import pandas as pd
 import src.stockselector.wbottom as wbottom
+
 ''' 回测模块：回测一天中，所有股票在该日期中的表现; 横向回测，不支持多进程 '''
 
 class CBackTestBydate:

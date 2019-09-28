@@ -15,6 +15,7 @@ import logging
 import redis
 import sys
 import os
+import src.common.tools as tools
 
 class CDataServiceMysql:
     def __init__(self, str_conf_path, log):
@@ -22,7 +23,7 @@ class CDataServiceMysql:
         # 只处理数据,否则更新实时数据到数据库
         self.just_process = False
         #更新一部分最新的k线数据;否则全部更新
-        self.b_updata_part = True
+        self.b_updata_part = False
 
         # 测试获取多少只股票
         self.stockCnt = 3651
@@ -39,7 +40,7 @@ class CDataServiceMysql:
         except Exception as e:
             print(e)
             log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
-            self.log.error(log_h+e)
+            self.log.error(log_h+str(e))
 
         self.init()
 #定义全局变量
@@ -246,8 +247,9 @@ class CDataServiceMysql:
                 #老版本1.2.18写法
                 #df = ts.pro_bar(ts_code=code, pro_api=pro, adj='qfq', start_date=startDay,end_date=endDay,retry_count=10)
                 # 新版本1.2.39写法
-                df = ts.pro_bar(ts_code=code, adj='qfq', start_date=startDay, end_date=endDay,
-                                retry_count=10)
+                #df = ts.pro_bar(ts_code=code, api=pro, adj='qfq', start_date=startDay, end_date=endDay,
+                #                retry_count=10)
+                df = ts.pro_bar(ts_code=code, api=pro, start_date=startDay, end_date=endDay)
 
                 call_times += 1
                 if call_times == 195:
@@ -648,8 +650,19 @@ class CDataServiceMysql:
         logging.debug('更新数据用时(秒)：' + str(times))
 ######################################################################################################################
 def main():
-    dataservice = CDataServiceMysql()
-    dataservice.aps_dataservice_update(None)
+    # 配置文件路径
+    cur_path = os.getcwd()
+    print(cur_path)
+    str_conf_path = cur_path + '/../../conf/conf.ini'
+
+    # 日志唯一
+    g_conf = conf.CConf(str_conf_path)
+    filename_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d_%H%M%S')
+    log_filename = cur_path + '/' + g_conf.log_dir + '/../../tide_system_' + filename_time + '.log'
+    g_log = tools.CLogger(g_conf.app_name, log_filename, 1).getLogger()
+
+    dataservice = CDataServiceMysql(str_conf_path, g_log)
+    dataservice.aps_dataservice_update()
     # 更新的起始时间
     '''str_start_day = '20171201'
     str_end_day = dataservice.GetToday()

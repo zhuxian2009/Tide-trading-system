@@ -4,19 +4,13 @@ import os
 import src.common.statistics as statistics
 import datetime
 import src.datamgr.dbadapter as dbadapter
-import matplotlib.pyplot as plt
-#导入中文字体，避免显示乱码
-import pylab as mpl
-import numpy as np
 import src.common.conf as conf
 import src.stockselector.wbottom as wbottom
-import src.backtest.backtest_bycode_status as backtest_bycode_status
 
 #策略
-import src.strategy.strategywbottom as strategywbottom
+import src.strategy.strategymgr as strategymgr
 
 ''' 回测模块，每次回测一支股票的所有日期，k线数据 '''
-
 
 #回测结果
 class CBT_Result:
@@ -36,16 +30,11 @@ class CBackTestBycode:
         self.start_day = ''
         self.wbottom = wbottom.CWBotton(self.dbadapter.db, log)
 
-        #状态：选股状态  持股状态  卖出状态
-        self.status_select = backtest_bycode_status.CBT_SelectStatus(self, str_conf_path, log)
-        self.status_hold = backtest_bycode_status.CBT_HoldStatus(self, str_conf_path, log)
-        self.status_sold = backtest_bycode_status.CBT_SoldStatus(self, str_conf_path, log)
-        self.cur_status = self.status_select
-
         #策略
-        self.strategy = strategywbottom.CStrategyWbottom(str_conf_path, log)
+        self.strategy = strategymgr.CStrategyMgr(str_conf_path, log)
+        self.strategy.start_day = '20190101'
 
-        self.m_statistics = statistics.CStatistics()
+        #self.m_statistics = statistics.CStatistics()
 
 
     #进程结束以后，进入回调函数
@@ -72,8 +61,6 @@ class CBackTestBycode:
 
     #处理一支股票
     def __process(self, code):
-
-        self.cur_status = self.status_select
         #print('backtest_bcode::__process  ... code=', code)
         today = self.dbadapter.GetToday()
         all_stock_kdata = self.dbadapter.QueryRangeKData(code, self.start_day, today)
@@ -98,7 +85,7 @@ class CBackTestBycode:
             #3. 策略给出状态：需要下一个数据、持有、卖出、统计等
 
         #ret = self.cur_status.get_result()
-        self.cur_status.statistics()
+        #self.statistics()
 
     #加入日K数据源
     def input_new_data(self, kdata):
@@ -163,7 +150,7 @@ def main():
     starttime = datetime.datetime.now()
     backtest = CBackTestBycode(str_conf_path, log)
     #回测时间范围：起始日期到最近一个交易日
-    start_day = '20190115'
+    start_day = '20180101'
     backtest.process(start_day)
 
     endtime = datetime.datetime.now()

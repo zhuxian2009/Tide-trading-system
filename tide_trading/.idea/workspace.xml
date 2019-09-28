@@ -10,8 +10,10 @@
       <change beforePath="$PROJECT_DIR$/log/dataservice_mysql_20190814_003355.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/log/nohup.out" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/backtest/backtest_bycode.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtest/backtest_bycode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backtest/backtest_bycode_status.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtest/backtest_bycode_status.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/strategy/strategybase.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/strategy/strategybase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backtest/backtest_bycode_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backtest/backtest_bydate.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtest/backtest_bydate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datamgr/dataservice_mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/datamgr/dataservice_mysql.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/strategy/strategywbottom.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/backtest/backtest_bycode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1995">
-              <caret line="119" column="25" selection-start-line="119" selection-start-column="8" selection-end-line="119" selection-end-column="25" />
+            <state relative-caret-position="333">
+              <caret line="115" column="23" selection-start-line="115" selection-start-column="19" selection-end-line="115" selection-end-column="23" />
               <folding>
                 <element signature="e#15#47#0" expanded="true" />
               </folding>
@@ -37,34 +39,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/strategy/strategybase.py">
+        <entry file="file://$PROJECT_DIR$/src/backtest/bt_littlestep_status.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="230">
+              <caret line="73" column="36" lean-forward="true" selection-start-line="73" selection-start-column="36" selection-end-line="73" selection-end-column="36" />
               <folding>
-                <element signature="e#14#49#0" expanded="true" />
+                <element signature="e#16#84#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/backtest/backtest_bycode_status.py">
+        <entry file="file://$PROJECT_DIR$/src/backtest/bt_wbottom_status.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="931">
-              <caret line="52" column="18" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="18" />
+            <state relative-caret-position="154">
+              <caret line="20" column="80" selection-start-line="20" selection-start-column="80" selection-end-line="20" selection-end-column="80" />
               <folding>
-                <element signature="e#16#57#0" expanded="true" />
+                <element signature="e#16#84#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/strategy/strategywbottom.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/strategy/strategylittlestep.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="247">
-              <caret line="28" column="32" lean-forward="true" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
+              <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
               <folding>
                 <element signature="e#14#81#0" expanded="true" />
               </folding>
@@ -73,24 +75,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/datamgr/dbmgr.py">
+        <entry file="file://$PROJECT_DIR$/src/backtest/bt_base_status.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-column="13" />
+            <state relative-caret-position="38">
+              <caret line="4" column="41" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
               <folding>
-                <element signature="e#14#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stockselector/myselectorbase.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1026">
-              <caret line="61" selection-start-line="61" selection-end-line="64" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#34#0" expanded="true" />
+                <element signature="e#16#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,8 +89,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stockselector/wbottom.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="950">
-              <caret line="53" column="46" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="46" />
+            <state relative-caret-position="2983">
+              <caret line="160" column="25" selection-start-line="160" selection-start-column="25" selection-end-line="160" selection-end-column="25" />
               <folding>
                 <element signature="e#16#73#0" expanded="true" />
               </folding>
@@ -109,19 +99,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/datamgr/t_bt_strategy.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="817">
-              <caret line="43" column="50" selection-start-line="43" selection-start-column="50" selection-end-line="43" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/datamgr/dbadapter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1463">
-              <caret line="83" column="132" selection-start-line="83" selection-start-column="49" selection-end-line="83" selection-end-column="132" />
+            <state relative-caret-position="1273">
+              <caret line="73" column="96" selection-start-line="73" selection-start-column="89" selection-end-line="73" selection-end-column="96" />
               <folding>
                 <element signature="e#14#47#0" expanded="true" />
               </folding>
@@ -132,8 +113,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/datamgr/dataservice_mysql.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2071">
-              <caret line="109" column="31" selection-start-line="109" selection-start-column="31" selection-end-line="109" selection-end-column="31" />
+            <state relative-caret-position="5130">
+              <caret line="270" column="51" selection-start-line="270" selection-start-column="51" selection-end-line="270" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/tushare/pro/data_pro.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="760">
+              <caret line="44" column="11" selection-start-line="44" selection-start-column="11" selection-end-line="44" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myflask.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="18" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -149,17 +148,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pd.DataFrame</find>
-      <find>GetPartKDataAndSave</find>
-      <find>quote</find>
-      <find>start trade day is lost!</find>
-      <find>self.log</find>
-      <find>getLogger</find>
-      <find>cur_open</find>
-      <find>sw_key_rt_wbottom</find>
-      <find>Exception</find>
-      <find>top_dict</find>
-      <find>self.re.</find>
       <find>excel_sheet</find>
       <find>use_mul_process</find>
       <find>QueryKData</find>
@@ -170,15 +158,26 @@
       <find>savetodb_callback</find>
       <find>result.buy_close</find>
       <find>tools</find>
-      <find>statistics</find>
-      <find>strategywbottom</find>
       <find>CStrategyWbottom</find>
-      <find>strategy</find>
       <find>try:</find>
       <find>selected_callback</find>
       <find>backtest</find>
       <find>try</find>
       <find>input_newkdata</find>
+      <find>strategywbottom</find>
+      <find>CBT_SelectStatus</find>
+      <find>status_select</find>
+      <find>cur_status</find>
+      <find>statistics</find>
+      <find>status_sold</find>
+      <find>wbottom</find>
+      <find>m_statistics</find>
+      <find>strategy</find>
+      <find>start_day</find>
+      <find>operator</find>
+      <find>cur_trade_day</find>
+      <find>b_updata_part</find>
+      <find>GetOnlineKData...</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -187,11 +186,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main.py" />
-        <option value="//49.235.44.90/share/hdf5test/myflask.py" />
-        <option value="Z:/hdf5test/src/datamgr/dataservice_mysql.py" />
-        <option value="Z:/hdf5test/conf/conf.ini" />
-        <option value="Z:/hdf5test/src/common/conf.py" />
         <option value="Z:/hdf5test/src/backtest/backtest_bycode.py" />
         <option value="Z:/hdf5test/src/stockselector/myselectorbase.py" />
         <option value="Z:/hdf5test/src/realtime/rt_hotspot.py" />
@@ -214,7 +208,6 @@
         <option value="$PROJECT_DIR$/src/datamgr/t_realtime_quotes.py" />
         <option value="$PROJECT_DIR$/src/common/tools.py" />
         <option value="$PROJECT_DIR$/src/common/setting.py" />
-        <option value="$PROJECT_DIR$/src/datamgr/dataservice_mysql.py" />
         <option value="$PROJECT_DIR$/src/realtime/rt_hotspot.py" />
         <option value="$PROJECT_DIR$/src/realtime/rt_limitconcept.py" />
         <option value="$PROJECT_DIR$/src/realtime/rt_chipconcent.py" />
@@ -225,7 +218,6 @@
         <option value="$PROJECT_DIR$/myflask.py" />
         <option value="$PROJECT_DIR$/src/realtime/rt_hottrace.py" />
         <option value="$PROJECT_DIR$/src/datamgr/baseinfo.py" />
-        <option value="$PROJECT_DIR$/src/backtest/backtest_bydate.py" />
         <option value="$PROJECT_DIR$/src/datamgr/t_kdata.py" />
         <option value="$PROJECT_DIR$/src/realtime/rt_wbottom.py" />
         <option value="$PROJECT_DIR$/src/stockselector/wbottom.py" />
@@ -235,9 +227,16 @@
         <option value="$PROJECT_DIR$/src/common/statistics.py" />
         <option value="$PROJECT_DIR$/src/strategy/strategybase.py" />
         <option value="$PROJECT_DIR$/src/datamgr/dbmgr.py" />
-        <option value="$PROJECT_DIR$/src/backtest/backtest_bycode.py" />
-        <option value="$PROJECT_DIR$/src/strategy/strategywbottom.py" />
         <option value="$PROJECT_DIR$/src/backtest/backtest_bycode_status.py" />
+        <option value="$PROJECT_DIR$/src/backtest/backtest_bydate.py" />
+        <option value="$PROJECT_DIR$/src/backtest/bt_base_status.py" />
+        <option value="$PROJECT_DIR$/src/backtest/bt_wbottom_status.py" />
+        <option value="$PROJECT_DIR$/src/strategy/strategywbottom.py" />
+        <option value="$PROJECT_DIR$/src/strategy/strategymgr.py" />
+        <option value="$PROJECT_DIR$/src/strategy/strategylittlestep.py" />
+        <option value="$PROJECT_DIR$/src/datamgr/dataservice_mysql.py" />
+        <option value="$PROJECT_DIR$/src/backtest/backtest_bycode.py" />
+        <option value="$PROJECT_DIR$/src/backtest/bt_littlestep_status.py" />
       </list>
     </option>
   </component>
@@ -253,22 +252,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -286,6 +269,34 @@
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="datamgr" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="backtest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tide_trading" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tide_trading" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="strategy" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -330,7 +341,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="myflask" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="dataservice_mysql" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="hdf5test" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/datamgr" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/datamgr/dataservice_mysql.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="myflask" type="PythonConfigurationType" factoryName="Python">
       <module name="hdf5test" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -375,10 +407,11 @@
     <list>
       <item itemvalue="Python.backtest_bycode" />
       <item itemvalue="Python.myflask" />
+      <item itemvalue="Python.dataservice_mysql" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.myflask" />
+        <item itemvalue="Python.dataservice_mysql" />
         <item itemvalue="Python.myflask" />
       </list>
     </recent_temporary>
@@ -499,7 +532,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568991045523</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="使用状态模式实现回测模块，回测双底策略，写入mysql，再将结果输出为坐标显示。">
+      <created>1569251077449</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1569251077449</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView">
@@ -515,19 +555,19 @@
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4419643" visible="true" weight="0.14598025" />
-      <window_info id="Structure" order="1" sideWeight="0.55803573" side_tool="true" visible="true" weight="0.14598025" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.42773438" visible="true" weight="0.14598025" />
+      <window_info id="Structure" order="1" sideWeight="0.5722656" side_tool="true" visible="true" weight="0.14598025" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.3293371" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.53314525" weight="0.3769124" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.48307475" weight="0.28789985" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.522567" weight="0.28511822" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.47602257" weight="0.28789985" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49858958" weight="0.32823366" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49788433" weight="0.32962447" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49858958" weight="0.32823366" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.46685472" side_tool="true" visible="true" weight="0.3769124" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.477433" side_tool="true" visible="true" weight="0.28789985" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49788433" weight="0.32823366" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -572,7 +612,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/datamgr/dataservice_mysql.py</url>
-          <line>87</line>
+          <line>88</line>
           <option name="timeStamp" value="261" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -589,11 +629,6 @@
           <url>file://$PROJECT_DIR$/venv/Lib/site-packages/tushare/pro/data_pro.py</url>
           <line>207</line>
           <option name="timeStamp" value="290" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/datamgr/dataservice_mysql.py</url>
-          <line>651</line>
-          <option name="timeStamp" value="330" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/datamgr/t_chipconcent.py</url>
@@ -620,11 +655,6 @@
           <url>file://$PROJECT_DIR$/src/datamgr/t_realtime_strategy.py</url>
           <line>69</line>
           <option name="timeStamp" value="396" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/datamgr/dataservice_mysql.py</url>
-          <line>61</line>
-          <option name="timeStamp" value="426" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/common/schedulermgr.py</url>
@@ -687,24 +717,39 @@
           <option name="timeStamp" value="476" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/backtest/backtest_bycode_status.py</url>
-          <line>170</line>
-          <option name="timeStamp" value="487" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/backtest/backtest_bycode_status.py</url>
-          <line>120</line>
-          <option name="timeStamp" value="507" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/strategy/strategywbottom.py</url>
-          <line>24</line>
-          <option name="timeStamp" value="512" />
+          <url>file://$PROJECT_DIR$/src/backtest/backtest_bycode.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="515" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/backtest/backtest_bycode.py</url>
           <line>107</line>
-          <option name="timeStamp" value="514" />
+          <option name="timeStamp" value="517" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/backtest/bt_wbottom_status.py</url>
+          <line>18</line>
+          <option name="timeStamp" value="518" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/datamgr/dataservice_mysql.py</url>
+          <line>236</line>
+          <option name="timeStamp" value="522" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/datamgr/dataservice_mysql.py</url>
+          <line>334</line>
+          <option name="timeStamp" value="523" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/backtest/bt_littlestep_status.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="524" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/backtest/bt_littlestep_status.py</url>
+          <line>58</line>
+          <option name="timeStamp" value="525" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -744,92 +789,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/werkzeug/debug/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="329" selection-start-line="329" selection-end-line="329" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="1934" selection-start-line="1934" selection-end-line="1934" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/query_realtime_hotconspt.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/pandas/core/indexes/datetimes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51148">
-          <caret line="2748" selection-start-line="2748" selection-end-line="2748" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/matplotlib/pyplot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52098">
-          <caret line="2791" column="4" selection-start-line="2791" selection-start-column="4" selection-end-line="2791" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/pandas/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="34" lean-forward="true" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/filelock.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="950">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/datamgr/dataservice.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3591" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/backtest/bt_wbottom.py" />
-    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/apscheduler/executors/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="124" selection-start-line="124" selection-end-line="124" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-682264907/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="737" column="8" selection-start-line="737" selection-start-column="8" selection-end-line="737" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/datamgr/creat_table.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/tushare/pro/data_pro.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12">
-          <caret line="49" column="26" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/flask_apscheduler/scheduler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="96" selection-start-line="96" selection-end-line="96" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/pylab.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -989,13 +948,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/backtest/backtest_bydate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="15" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/datamgr/t_kdata.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5434">
@@ -1012,13 +964,6 @@
           <folding>
             <element signature="e#14#28#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myflask.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -1039,35 +984,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/backtest/backtest_bycode.py">
+    <entry file="file://$PROJECT_DIR$/src/strategy/strategy06.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/strategy/strategy05.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1995">
-          <caret line="119" column="25" selection-start-line="119" selection-start-column="8" selection-end-line="119" selection-end-column="25" />
-          <folding>
-            <element signature="e#15#47#0" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-2243" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/strategy/strategybase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#14#49#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/strategy/strategy04.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/backtest/backtest_bycode_status.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="931">
-          <caret line="52" column="18" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="18" />
-          <folding>
-            <element signature="e#16#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/strategy/strategy03.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/strategy/strategy02.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/strategy/strategy01.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/strategy/strategy01 - 副本.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/datamgr/dbmgr.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1089,27 +1027,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/backtest/backtest_bycode_status.py" />
+    <entry file="file://$PROJECT_DIR$/src/backtest/backtest_bydate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#16#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/strategy/strategybase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#14#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/strategy/strategywbottom.py" />
+    <entry file="file://$PROJECT_DIR$/src/datamgr/t_bt_strategy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="43" column="50" selection-start-line="43" selection-start-column="50" selection-end-line="43" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/configparser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="779" selection-start-line="779" selection-end-line="779" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/strategy/strategymgr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="722">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+          <folding>
+            <element signature="e#14#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backtest/bt_base_status.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="4" column="41" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+          <folding>
+            <element signature="e#16#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/stockselector/wbottom.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="950">
-          <caret line="53" column="46" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="46" />
+        <state relative-caret-position="2983">
+          <caret line="160" column="25" selection-start-line="160" selection-start-column="25" selection-end-line="160" selection-end-column="25" />
           <folding>
             <element signature="e#16#73#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/datamgr/t_bt_strategy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="817">
-          <caret line="43" column="50" selection-start-line="43" selection-start-column="50" selection-end-line="43" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/datamgr/dbadapter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1463">
-          <caret line="83" column="132" selection-start-line="83" selection-start-column="49" selection-end-line="83" selection-end-column="132" />
+        <state relative-caret-position="1273">
+          <caret line="73" column="96" selection-start-line="73" selection-start-column="89" selection-end-line="73" selection-end-column="96" />
           <folding>
             <element signature="e#14#47#0" expanded="true" />
           </folding>
@@ -1118,17 +1105,61 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/datamgr/dataservice_mysql.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2071">
-          <caret line="109" column="31" selection-start-line="109" selection-start-column="31" selection-end-line="109" selection-end-column="31" />
+        <state relative-caret-position="5130">
+          <caret line="270" column="51" selection-start-line="270" selection-start-column="51" selection-end-line="270" selection-end-column="51" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/strategy/strategywbottom.py">
+    <entry file="file://$PROJECT_DIR$/../../../tide_trading/venv/Lib/site-packages/tushare/pro/data_pro.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="760">
+          <caret line="44" column="11" selection-start-line="44" selection-start-column="11" selection-end-line="44" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myflask.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="18" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backtest/bt_littlestep_status.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="73" column="36" lean-forward="true" selection-start-line="73" selection-start-column="36" selection-end-line="73" selection-end-column="36" />
+          <folding>
+            <element signature="e#16#84#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/strategy/strategylittlestep.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
-          <caret line="28" column="32" lean-forward="true" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
+          <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
           <folding>
             <element signature="e#14#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backtest/bt_wbottom_status.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="20" column="80" selection-start-line="20" selection-start-column="80" selection-end-line="20" selection-end-column="80" />
+          <folding>
+            <element signature="e#16#84#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/backtest/backtest_bycode.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="115" column="23" selection-start-line="115" selection-start-column="19" selection-end-line="115" selection-end-column="23" />
+          <folding>
+            <element signature="e#15#47#0" expanded="true" />
           </folding>
         </state>
       </provider>

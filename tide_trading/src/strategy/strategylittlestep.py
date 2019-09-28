@@ -1,13 +1,16 @@
 #coding=utf-8
 from src.strategy.strategybase import CStrategyBase as strategybase
-import src.backtest.backtest_bycode_status as backtest_bycode_status
 import src.datamgr.dbadapter as dbadapter
 import src.stockselector.wbottom as wbottom
 from src.backtest.backtest_bycode import CBT_Result as CBT_Result
+import src.common.statistics as statistics
 import datetime
+from src.backtest.bt_wbottom_status import CBT_WBottomSelectStatus as CBT_SelectStatus
+from src.backtest.bt_wbottom_status import CBT_WBottomHoldStatus as CBT_HoldStatus
+from src.backtest.bt_wbottom_status import CBT_WBottomSoldStatus as CBT_SoldStatus
 
 #双底策略
-class CStrategyWbottom(strategybase):
+class CStrategyLittleStep(strategybase):
     def __init__(self, str_conf_path, log):
         self.dbadapter = dbadapter.CDBAdapter(str_conf_path, log)
         self.log = log
@@ -15,10 +18,15 @@ class CStrategyWbottom(strategybase):
         self.wbottom = wbottom.CWBotton(self.dbadapter.db, log)
 
         #状态：选股状态  持股状态  卖出状态
-        self.status_select = backtest_bycode_status.CBT_SelectStatus(self, str_conf_path, log)
-        self.status_hold = backtest_bycode_status.CBT_HoldStatus(self, str_conf_path, log)
-        self.status_sold = backtest_bycode_status.CBT_SoldStatus(self, str_conf_path, log)
+        self.status_select = CBT_SelectStatus(self, str_conf_path, log)
+        self.status_hold = CBT_HoldStatus(self, str_conf_path, log)
+        self.status_sold = CBT_SoldStatus(self, str_conf_path, log)
         self.cur_status = self.status_select
+
+        self.m_statistics = statistics.CStatistics()
+
+    def get_status(self):
+        return self.cur_status
 
     # 加入日K数据源
     def input_new_data(self, kdata):
