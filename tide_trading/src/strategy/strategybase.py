@@ -24,7 +24,7 @@ class CStrategyBase(ABC):
         pass
 
     #绘制统计图形
-    def draw(self, list_date, list_y):
+    def draw(self, list_date, list_y, title):
         mpl.rcParams['font.sans-serif'] = ['simhei']
         mpl.rcParams['font.family'] = 'sans-serif'
         mpl.rcParams['axes.unicode_minus'] = False
@@ -34,7 +34,7 @@ class CStrategyBase(ABC):
 
         # 生成axis对象，相当于在画板上准备一张白纸，111，11表示只有一个表格，第3个1，表示在第1个表格上画图
         ax = fig.add_subplot(111)
-        plt.title('双底策略')
+        plt.title(title)
         plt.xlabel(u'交易日')
         plt.ylabel(u'盈亏百分比')
 

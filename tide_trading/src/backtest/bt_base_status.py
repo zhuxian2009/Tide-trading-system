@@ -11,6 +11,12 @@ class status_type(Enum):
     STATUS_HOLD = 1
     STATUS_SOLD = 2
 
+#策略类型
+class strategy_type(Enum):
+    STGY_WBOTTOM = 1
+    STGY_STEP = 2
+
+
 #抽象类，抽象方法
 class CBT_Base_Status(metaclass=abc.ABCMeta):
 

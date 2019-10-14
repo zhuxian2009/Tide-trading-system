@@ -25,7 +25,7 @@ class CStrategyMgr(strategybase):
     def __init__(self, str_conf_path, log):
         self.dbadapter = dbadapter.CDBAdapter(str_conf_path, log)
         self.log = log
-        self.start_day = ''
+        self.start_day = '20170101'
 
         #状态：选股状态  持股状态  卖出状态
         self.status_select = CBT_SelectStatus(self, str_conf_path, log)
@@ -34,6 +34,10 @@ class CStrategyMgr(strategybase):
         self.cur_status = self.status_select
 
         self.m_statistics = statistics.CStatistics()
+
+    #加载指定日期的上证指数
+    def get_sh000001(self, date):
+        return self.dbadapter.QueryRangeKData('sh000001', date, date)
 
     def get_status(self):
         return self.cur_status
@@ -64,7 +68,14 @@ class CStrategyMgr(strategybase):
     def statistics(self):
         # 1. 从mysql读取数据
         # "ts_code", "buydate", "buyprice", "selldate", "sellprice", "duration", "strategyid"
-        df = self.dbadapter.QueryBTStrategy(id=1)
+        strategyid=2
+        df = self.dbadapter.QueryBTStrategy(id=strategyid)
+
+        title = ''
+        if strategyid==1:
+            title = '双底策略'
+        elif strategyid==2:
+            title = '步步高升'
 
         # 2. 统计某一个卖出时间，对应的涨跌幅平均值
         list_selldate = list()
@@ -108,7 +119,16 @@ class CStrategyMgr(strategybase):
         print(list_selldate)
         print(list_gain)
 
-        self.draw(list_selldate, list_gain)
+        #统计盈利：亏损日期数量
+        profit_count = 0
+        for i in range(0, len(list_gain)):
+            if list_gain[i] > 0:
+                profit_count = profit_count + 1
+
+        str_profit = '  盈利日期：亏损日期 = '+str(profit_count)+':'+str(len(list_gain)-profit_count)
+        title = title + str_profit
+
+        self.draw(list_selldate, list_gain, title)
 
 
 

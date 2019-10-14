@@ -16,6 +16,8 @@ import redis
 import sys
 import os
 import src.common.tools as tools
+import requests
+import json
 
 class CDataServiceMysql:
     def __init__(self, str_conf_path, log):
@@ -192,6 +194,52 @@ class CDataServiceMysql:
         print('股票从 ', str_start_day, '--- ', str_end_day, ' 一共交易天数：', len(trade_days))
         logging.debug('股票从 ' + str_start_day + '--- ' + str_end_day + ' 一共交易天数：' + str(len(trade_days)))
         return trade_days
+
+    #获取上证指数,起始日期到当前
+    def GetSH0000001(self, startDay, endDay):
+        code = 'sh000001'
+        cur_start_day = startDay[0:4]
+        cur_start_day += '-'
+        cur_start_day += startDay[4:6]
+        cur_start_day += '-'
+        cur_start_day += startDay[6:]
+
+        url = 'http://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param='+code+',day,'+cur_start_day+',,640,qfq'
+        r = requests.get(url)  # 向指定网址请求，下载股票数据
+        print(r.text)
+        my_json = json.loads(r.text)
+        print(my_json)
+        # 交易日，开盘价，收盘价，最高价，最低价,总手
+        my_day = my_json['data'][code]['day']
+
+        # ts_code trade_day open high low close 涨跌幅 总手 成交额（千元）
+        new_list = list()
+        for i in range(0, len(my_day)):
+            list_row = list()
+            list_row.append(code)
+            # trade_day
+            trade_day = my_day[i][0]
+            cur_trade_day = trade_day[0:4]
+            cur_trade_day += trade_day[5:7]
+            cur_trade_day += trade_day[8:]
+            list_row.append(cur_trade_day)
+            # open
+            list_row.append(my_day[i][1])
+            # high
+            list_row.append(my_day[i][3])
+            # low
+            list_row.append(my_day[i][4])
+            # close
+            list_row.append(my_day[i][2])
+            # 涨跌幅
+            list_row.append('0')
+            # 总手
+            list_row.append(my_day[i][5])
+            # 成交额（千元）
+            list_row.append('0')
+            new_list.append(list_row)
+
+        self.db.add_kdata_down_many(new_list)
 
     #tushare获取日线行情
     #更新时间：交易日每天15点～16点之间
@@ -591,7 +639,7 @@ class CDataServiceMysql:
         except Exception as e:
             print(e)
             log_h = os.path.basename(__file__) + ":" + __name__ + ":" + str(sys._getframe().f_lineno) + ":  "
-            self.log.error(log_h + e)
+            self.log.error(log_h + str(e))
 
         # 更新的起始时间
         str_start_day = '20171201'
@@ -606,6 +654,7 @@ class CDataServiceMysql:
         if update_days > 0:
             self.just_process = False
 
+        #dataframe
         list_code = self.GetStockList()
 
         # 全部下载，处理
@@ -615,6 +664,17 @@ class CDataServiceMysql:
                 list_online_trade_days = self.GetOnlineTradeDays(str_start_day, str_end_day)
                 self.SaveTradeDay(list_online_trade_days)
                 self.GetOnlineKData(list_code, str_start_day, str_end_day)
+
+                # 无论完全下载，还是部分下载，目前都重新下载一次上证指数
+                self.GetSH0000001(str_start_day, str_end_day)
+
+                #list_code 中加入上证指数
+                row = {'ts_code':'sh000001','symbol':'上证指数','name':'0','area':'0','market':'0','list_status':'0'}
+                list_code = list_code.append(row, ignore_index=True)
+
+                #测试，只计算上证指数
+                #list_code = list_code[-1:]
+
                 self.DataProcess(list_code)
                 self.CloneDB()
 
